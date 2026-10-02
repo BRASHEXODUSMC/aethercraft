@@ -1,0 +1,20 @@
+AETHERCRAFT PLAYER HEAD FIX
+===========================
+
+The Players page now requests the selected player's head using the UUID returned
+by the player lookup. UUID rendering is more reliable than resolving the username
+a second time.
+
+Primary head endpoint:
+https://api.mcheads.org/head/UUID/96
+
+Automatic fallback endpoints:
+https://mc-heads.net/head/UUID/96
+https://mc-heads.net/avatar/UUID/96
+
+The page also falls back to a Steve head if both free providers are temporarily
+unavailable. No PHP, Node.js, API key, or XAMPP is required for the images.
+
+Open loader.html with VS Code Live Server, visit Players, and search a valid Java
+Edition username. Hard-refresh the page with Ctrl+F5 if an older players.js file
+is cached by the browser.

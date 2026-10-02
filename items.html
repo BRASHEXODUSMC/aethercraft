@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Modern Minecraft server website template"
+    />
+    <title>Blocks & Items | AetherCraft</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div id="curtain" class="transition-curtain"></div>
+    <nav class="nav">
+      <div class="wrap nav-inner">
+        <a class="brand" href="index.html" data-transition
+          ><span class="brand-cube"></span
+          ><strong data-server-name>AetherCraft</strong></a
+        ><button id="mobileToggle" class="btn ghost mobile-toggle">Menu</button>
+        <div id="navLinks" class="links">
+          <a href="index.html" data-transition>Home</a
+          ><a href="forums.html" data-transition>Forums</a
+          ><a href="vote.html" data-transition>Vote</a
+          ><a href="players.html" data-transition>Players</a
+          ><a href="items.html" data-transition>Items</a
+          ><a href="staff.html" data-transition>Staff</a
+          ><a href="admin.html" data-transition>Admin</a><a href="build-academy.html" data-transition>Build Academy</a>
+        </div>
+        <div class="nav-actions" data-auth-actions></div>
+      </div>
+    </nav>
+    <main>
+      <section class="page-hero">
+        <div class="wrap">
+          <span class="kicker">MINECRAFT GUIDE</span>
+          <h1 class="page-title">Blocks & Items</h1>
+          <p class="muted">
+            Browse a large Java Edition-style catalog of blocks, items, tools,
+            armor, food, redstone, spawn eggs, templates, collectibles, IDs, and
+            selected recipes.
+          </p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap">
+          <div id="itemTools" class="item-tools">
+            <input
+              id="itemSearch"
+              class="input"
+              placeholder="Search name, category, or minecraft ID..."
+            /><select id="itemCategory" class="input">
+              <option>Loading categories...</option></select
+            ><select id="itemType" class="input">
+              <option value="all">Blocks + items</option>
+              <option value="blocks">Blocks only</option>
+              <option value="items">Items only</option>
+            </select>
+          </div>
+          <div class="catalog-meta">
+            <strong id="itemCount">Loading catalog...</strong
+            ><span>Catalog target: Java Edition 1.21.x families</span>
+          </div>
+          <div id="itemGrid" class="item-grid"></div>
+          <div id="pagination" class="pagination"></div>
+          <div class="notice catalog-note">
+            <strong>Catalog note:</strong> Minecraft changes over time. This
+            template includes a broad 1.21.x-oriented catalog generated from the
+            major block and item families. Server owners can edit
+            <code>data/items.json</code> to add modded, custom, future, or
+            server-exclusive entries.
+          </div>
+        </div>
+      </section>
+    </main>
+    <div
+      id="itemModal"
+      class="item-recipe-modal"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="itemModalTitle"
+    >
+      <div class="item-recipe-panel">
+        <button
+          id="closeItem"
+          class="recipe-modal-close"
+          type="button"
+          aria-label="Close recipe"
+        >
+          ✕ Close
+        </button>
+        <div id="itemModalBody"></div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="wrap footer-grid">
+        <div>
+          <div class="brand">
+            <span class="brand-cube"></span
+            ><strong data-server-name>AetherCraft</strong>
+          </div>
+          <p>Reusable community website template for Minecraft servers.</p>
+        </div>
+        <div>
+          <strong>Explore</strong>
+          <p>
+            <a href="forums.html" data-transition>Forums</a><a href="achievements.html" data-transition>Achievements</a><br /><a
+              href="vote.html"
+              data-transition
+              >Vote</a
+            ><br /><a href="items.html" data-transition>Item guide</a>
+          </p>
+        </div>
+        <div>
+          <strong>Server</strong>
+          <p>
+            <span data-server-ip>play.example.net</span><br /><a
+              data-discord
+              href="#"
+              >Discord</a
+            ><br /><a data-store href="#">Store</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+    <div id="toast" class="toast"></div>
+    <script src="js/common.js"></script>
+    <script src="js/items.js"></script>
+  </body>
+</html>

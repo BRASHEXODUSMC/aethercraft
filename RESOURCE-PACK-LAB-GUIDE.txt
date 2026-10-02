@@ -1,0 +1,21 @@
+AETHERCRAFT v2.8 - RESOURCE PACK LAB
+
+The new Resource Pack Lab converts Java resource-pack ZIPs locally in the browser.
+It creates a Bedrock manifest.json, copies common PNG textures into Bedrock directories,
+creates textures/item_texture.json, converts Java PNG .mcmeta animation timing into
+textures/flipbook_textures.json, detects bow/crossbow state textures, and writes a
+conversion report into the output pack.
+
+IMPORTANT: Java and Bedrock packs are not identical formats. Java model predicates,
+OptiFine/CIT, shaders, entity UV layouts, custom fonts, emissive/TGA requirements and
+some custom model systems need manual adaptation. The converter reports those files
+instead of silently pretending they are compatible.
+
+The ZIP reader supports stored and DEFLATE ZIP entries using browser DecompressionStream.
+The generated .mcpack is a standards-compatible uncompressed ZIP container.
+
+BUILD ACADEMY / GRABCRAFT
+GrabCraft blueprint content is not copied into this project. Build Academy has a search
+box that opens the corresponding GrabCraft search page. This preserves attribution and
+keeps GrabCraft blueprints on GrabCraft while AetherCraft continues to provide its own
+built-in layer guides and 3D previews.

@@ -1,0 +1,14 @@
+AETHERCRAFT COMMUNITY PROFILES - V2.1
+
+This static HTML version stores accounts, linked Minecraft profiles, forum posts, reactions, profile photos, and signature images in the browser localStorage. It is ideal for Live Server demonstrations and template previews. Data is not shared between devices or browsers.
+
+FEATURES
+- Click a forum author name or Minecraft head to open profile.html?user=USERNAME.
+- Linked Minecraft heads appear in the navbar and forum activity.
+- Account owners can edit a bio, status, favorite mode, optional location and website.
+- Profile picture and forum signature images are resized in the browser before storage.
+- Profiles show join date, role, topics, replies, reactions, total posts, and recent activity.
+- Existing accounts automatically receive empty profile fields; no reset is required.
+
+FOR PRODUCTION
+Move users, posts, replies, reactions, and uploaded images to a real backend/database. Never store real passwords in localStorage. Validate image uploads server-side and require authenticated ownership before profile edits.

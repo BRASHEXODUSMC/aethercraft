@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Modern Minecraft server website template"
+    />
+    <title>Vote | AetherCraft</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div id="curtain" class="transition-curtain"></div>
+    <nav class="nav">
+      <div class="wrap nav-inner">
+        <a class="brand" href="index.html" data-transition
+          ><span class="brand-cube"></span
+          ><strong data-server-name>AetherCraft</strong></a
+        ><button id="mobileToggle" class="btn ghost mobile-toggle">Menu</button>
+        <div id="navLinks" class="links">
+          <a href="index.html" data-transition>Home</a
+          ><a href="forums.html" data-transition>Forums</a
+          ><a href="vote.html" data-transition>Vote</a
+          ><a href="players.html" data-transition>Players</a
+          ><a href="items.html" data-transition>Items</a
+          ><a href="staff.html" data-transition>Staff</a
+          ><a href="admin.html" data-transition>Admin</a><a href="build-academy.html" data-transition>Build Academy</a>
+        </div>
+        <div class="nav-actions" data-auth-actions></div>
+      </div>
+    </nav>
+    <main>
+      <section class="page-hero">
+        <div class="wrap">
+          <span class="kicker">SUPPORT THE SERVER</span>
+          <h1 class="page-title">Vote & Earn Rewards</h1>
+          <p class="muted">
+            Choose a voting site. The page stays inside this website whenever
+            the provider permits embedding.
+          </p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap vote-grid">
+          <aside>
+            <div class="card">
+              <h3>Voting sites</h3>
+              <div id="voteList" class="vote-list">
+                <button
+                  class="btn primary voteBtn"
+                  data-url="https://minecraftservers.org/"
+                >
+                  Minecraft Servers</button
+                ><button
+                  class="btn ghost voteBtn"
+                  data-url="https://www.planetminecraft.com/servers/"
+                >
+                  Planet Minecraft</button
+                ><button
+                  class="btn ghost voteBtn"
+                  data-url="https://minecraft-mp.com/"
+                >
+                  Minecraft-MP
+                </button>
+              </div>
+            </div>
+            <div class="notice" style="margin-top: 14px">
+              Some voting websites block iframe embedding for security. Use the
+              “Open externally” button when that happens.
+            </div>
+          </aside>
+          <div>
+            <div class="vote-frame-shell">
+              <iframe
+                id="voteFrame"
+                class="vote-frame"
+                src="https://minecraftservers.org/"
+                title="Voting website"
+              ></iframe>
+            </div>
+            <div class="toolbar">
+              <a
+                id="externalVote"
+                class="btn primary"
+                target="_blank"
+                href="https://minecraftservers.org/"
+                data-transition
+                >Open externally</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="wrap footer-grid">
+        <div>
+          <div class="brand">
+            <span class="brand-cube"></span
+            ><strong data-server-name>AetherCraft</strong>
+          </div>
+          <p>Reusable community website template for Minecraft servers.</p>
+        </div>
+        <div>
+          <strong>Explore</strong>
+          <p>
+            <a href="forums.html" data-transition>Forums</a><a href="achievements.html" data-transition>Achievements</a><br /><a
+              href="vote.html"
+              data-transition
+              >Vote</a
+            ><br /><a href="items.html" data-transition>Item guide</a>
+          </p>
+        </div>
+        <div>
+          <strong>Server</strong>
+          <p>
+            <span data-server-ip>play.example.net</span><br /><a
+              data-discord
+              href="#"
+              >Discord</a
+            ><br /><a data-store href="#">Store</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+    <div id="toast" class="toast"></div>
+    <script src="js/common.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        $$(".voteBtn").forEach(
+          (b) =>
+            (b.onclick = () => {
+              $$(".voteBtn").forEach(
+                (x) => (x.className = "btn ghost voteBtn"),
+              );
+              b.className = "btn primary voteBtn";
+              $("#voteFrame").src = b.dataset.url;
+              $("#externalVote").href = b.dataset.url;
+            }),
+        );
+      });
+    </script>
+  </body>
+</html>

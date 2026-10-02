@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Modern Minecraft server website template"
+    />
+    <title>Home | AetherCraft</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div id="curtain" class="transition-curtain"></div>
+    <nav class="nav">
+      <div class="wrap nav-inner">
+        <a class="brand" href="index.html" data-transition
+          ><span class="brand-cube"></span
+          ><strong data-server-name>AetherCraft</strong></a
+        ><button id="mobileToggle" class="btn ghost mobile-toggle">Menu</button>
+        <div id="navLinks" class="links">
+          <a href="index.html" data-transition>Home</a
+          ><a href="forums.html" data-transition>Forums</a
+          ><a href="vote.html" data-transition>Vote</a
+          ><a href="players.html" data-transition>Players</a
+          ><a href="items.html" data-transition>Items</a
+          ><a href="staff.html" data-transition>Staff</a
+          ><a href="admin.html" data-transition>Admin</a><a href="build-academy.html" data-transition>Build Academy</a>
+        </div>
+        <div class="nav-actions" data-auth-actions></div>
+      </div>
+    </nav>
+    <main>
+      <section class="hero">
+        <div class="wrap hero-grid">
+          <div>
+            <span class="eyebrow"
+              ><i class="pulse"></i
+              ><span id="statusText">Checking server...</span></span
+            >
+            <h1>BUILD.<br />EXPLORE.<br />CONQUER.</h1>
+            <p>
+              A complete Minecraft community template with live server status,
+              forums, voting, player tools, a block encyclopedia, memberships,
+              and administration.
+            </p>
+            <div class="hero-buttons">
+              <a class="btn primary" href="register.html" data-transition
+                >Start your adventure</a
+              ><a class="btn purple" href="forums.html" data-transition
+                >Visit the forums</a
+              >
+            </div>
+            <div class="server-strip">
+              <code data-server-ip>play.example.net</code
+              ><button class="btn ghost" data-copy-ip>Copy address</button>
+            </div>
+          </div>
+          <aside id="serverStatus" class="hero-card">
+            <div class="status-head">
+              <div class="server-icon">⛏</div>
+              <div>
+                <span class="tag green">LIVE SERVER</span>
+                <h2 data-server-name style="margin: 10px 0 0">AetherCraft</h2>
+              </div>
+            </div>
+            <p id="serverMotd" class="muted">Loading server message...</p>
+            <div class="status-grid">
+              <div class="stat">
+                <span>Players</span
+                ><strong
+                  ><b id="playersOnline">—</b> /
+                  <b id="playersMax">—</b></strong
+                >
+              </div>
+              <div class="stat">
+                <span>Version</span><strong id="serverVersion">—</strong>
+              </div>
+              <div class="stat"><span>Edition</span><strong>Java</strong></div>
+              <div class="stat">
+                <span>Latency</span><strong>Live API</strong>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="kicker">EVERYTHING INCLUDED</span>
+            <h2>A complete server hub</h2>
+            <p class="muted">
+              Built to work as a customizable template for survival, SMP,
+              minigames, factions, prison, skyblock, RPG, or network servers.
+            </p>
+          </div>
+          <div class="grid three">
+            <article class="card">
+              <div class="feature-icon">💬</div>
+              <h3>Integrated forums</h3>
+              <p>
+                Topics, tags, image drag-and-drop, video links, emoji-ready
+                replies, reactions, moderation states, and searchable
+                discussions.
+              </p>
+            </article>
+            <article class="card">
+              <div class="feature-icon">🧑‍🚀</div>
+              <h3>Player tools</h3>
+              <p>
+                Find Java usernames, UUIDs, skin previews, skin downloads, and
+                live server information from public APIs.
+              </p>
+            </article>
+            <article class="card">
+              <div class="feature-icon">🧱</div>
+              <h3>Block encyclopedia</h3>
+              <p>
+                A searchable item guide with categories, detailed descriptions,
+                common uses, and inventory-style crafting recipes.
+              </p>
+            </article>
+            <article class="card">
+              <div class="feature-icon">🗳️</div>
+              <h3>Voting center</h3>
+              <p>
+                Keep players on your website with embedded voting panels and
+                reliable external fallback buttons.
+              </p>
+            </article>
+            <article class="card">
+              <div class="feature-icon">🛒</div>
+              <h3>Store management</h3>
+              <p>
+                Admin purchase tables are ready to connect to Tebex webhooks
+                when the website is placed on PHP hosting.
+              </p>
+            </article>
+            <article class="card">
+              <div class="feature-icon">📊</div>
+              <h3>Admin analytics</h3>
+              <p>
+                Review members, revenue, purchases, forum activity, traffic
+                estimates, and community management tools.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section alt">
+        <div class="wrap grid three">
+          <div class="card">
+            <span class="kicker">01</span>
+            <h3>Change one config file</h3>
+            <p>
+              Server name, IP, colors, Discord, store, edition, and vote links
+              are controlled in <code>data/config.json</code>.
+            </p>
+          </div>
+          <div class="card">
+            <span class="kicker">02</span>
+            <h3>Open as normal HTML</h3>
+            <p>
+              The public design and demo features work as a standard HTML/CSS/JS
+              site with no Node.js.
+            </p>
+          </div>
+          <div class="card">
+            <span class="kicker">03</span>
+            <h3>Enable live accounts later</h3>
+            <p>
+              Use the included PHP/MySQL starter files when you are ready for
+              secure shared accounts and persistent data.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="wrap footer-grid">
+        <div>
+          <div class="brand">
+            <span class="brand-cube"></span
+            ><strong data-server-name>AetherCraft</strong>
+          </div>
+          <p>Reusable community website template for Minecraft servers.</p>
+        </div>
+        <div>
+          <strong>Explore</strong>
+          <p>
+            <a href="forums.html" data-transition>Forums</a><a href="achievements.html" data-transition>Achievements</a><br /><a
+              href="vote.html"
+              data-transition
+              >Vote</a
+            ><br /><a href="items.html" data-transition>Item guide</a>
+          </p>
+        </div>
+        <div>
+          <strong>Server</strong>
+          <p>
+            <span data-server-ip>play.example.net</span><br /><a
+              data-discord
+              href="#"
+              >Discord</a
+            ><br /><a data-store href="#">Store</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+    <div id="toast" class="toast"></div>
+    <script src="js/common.js"></script>
+  </body>
+</html>

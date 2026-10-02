@@ -1,0 +1,906 @@
+AETHERCRAFT STORE WEBHOOK JSON FIELD GUIDE
+==========================================
+Version: 2.0.3 documentation update
+
+PURPOSE
+-------
+This reference helps connect common Minecraft stores, ecommerce platforms,
+payment processors, Discord relays, and custom checkout systems to:
+
+    php/store-webhook.php
+
+The receiver converts different incoming JSON formats into one AetherCraft event:
+
+    {
+      "id": "unique transaction or event ID",
+      "player": "Minecraft username or customer name",
+      "product": "package or product name",
+      "total": 9.99,
+      "currency": "USD",
+      "createdAt": "2026-07-21T12:00:00Z",
+      "source": "provider/event name"
+    }
+
+IMPORTANT LIMITATIONS
+---------------------
+1. There is no permanent list of every possible store webhook. Providers can add,
+   rename, nest, or remove fields at any time.
+2. Many providers let store owners design a custom JSON body. In those cases,
+   your exact payload depends on the template you create.
+3. Always send a test webhook and inspect its raw body before going live.
+4. Do not trust purchase values only because they were received as JSON. Verify
+   signatures, secrets, event types, payment status, and duplicate IDs.
+5. VS Code Live Server cannot receive PHP webhooks. Use PHP-capable hosting,
+   cPanel, XAMPP, or a server/serverless endpoint.
+
+CURRENT AETHERCRAFT FIELD ALIASES
+---------------------------------
+The included receiver currently recognizes these common paths.
+
+Event/source:
+    subject
+    event
+
+Payload wrapper:
+    data
+    otherwise the complete root object
+
+Player/customer:
+    data.customer.username
+    data.username
+    data.player
+    data.ign
+
+Product/package:
+    data.package.name
+    data.product.name
+    data.product
+    data.item
+
+Price/total:
+    data.price
+    data.amount
+    data.total
+
+Transaction/event ID:
+    data.transaction_id
+    data.id
+    root.id
+
+Currency:
+    data.currency
+
+If your provider uses another field, add it to the matching PHP null-coalescing
+chain in php/store-webhook.php.
+
+
+============================================================
+1. TEBEX CREATOR WEBHOOKS
+============================================================
+
+Tebex sends JSON webhook events to configured endpoints. Common event families
+include payment completion, refunds, chargebacks, recurring payments, and
+validation events. Payload structure varies by the selected Tebex API/product
+and event version.
+
+Common root fields seen in Tebex webhook integrations:
+    id
+    type
+    subject
+    data
+
+Common nested purchase fields to look for:
+    data.transaction_id
+    data.payment.transaction_id
+    data.customer.username
+    data.customer.name
+    data.customer.email
+    data.player.username
+    data.username
+    data.packages
+    data.products
+    data.price
+    data.amount
+    data.total
+    data.currency
+
+Example normalized Tebex-style payload:
+
+    {
+      "id": "evt_123456",
+      "type": "payment.completed",
+      "subject": "payment.completed",
+      "data": {
+        "transaction_id": "tbx-ABC123",
+        "customer": {
+          "username": "ExamplePlayer"
+        },
+        "package": {
+          "name": "Diamond Rank"
+        },
+        "price": 14.99,
+        "currency": "USD"
+      }
+    }
+
+Recommended mapping:
+    source   = root.type OR root.subject
+    id       = data.transaction_id OR root.id
+    player   = data.customer.username OR data.username
+    product  = data.package.name OR first data.packages[].name
+    total    = data.price OR data.amount OR data.total
+    currency = data.currency
+
+Tebex validation and security notes:
+- Tebex may send an endpoint-validation webhook before enabling the endpoint.
+- Production integrations should follow Tebex's current signature verification
+  instructions rather than relying only on a URL query secret.
+- Only create purchase popups for successful/completed-payment events.
+- Do not announce validation, refund, dispute, or chargeback events as purchases.
+- Save and reject duplicate webhook/event IDs.
+
+Multiple-package handling:
+If data.packages is an array, join package names:
+
+    Diamond Rank + 5 Crate Keys
+
+PHP concept:
+
+    $names = array_map(fn($p) => $p['name'] ?? 'Item', $data['packages']);
+    $product = implode(' + ', $names);
+
+
+============================================================
+2. CRAFTINGSTORE CUSTOM WEBHOOKS
+============================================================
+
+CraftingStore supports JSON webhooks and exposes configurable placeholders.
+Common official placeholders include:
+
+    {in_game_name}
+    {gateway}
+    {uuid}
+    {payment_name}
+    {coupon}
+    {player_ip}
+    {price}
+    {referred_by}
+    {email}
+    {timestamp}
+    {transaction_id}
+    {external_transaction_id}
+
+Recommended CraftingStore JSON template:
+
+    {
+      "event": "payment.completed",
+      "provider": "craftingstore",
+      "username": "{in_game_name}",
+      "uuid": "{uuid}",
+      "product": "{payment_name}",
+      "price": "{price}",
+      "currency": "USD",
+      "transaction_id": "{transaction_id}",
+      "external_transaction_id": "{external_transaction_id}",
+      "gateway": "{gateway}",
+      "timestamp": "{timestamp}"
+    }
+
+This template already matches the AetherCraft receiver for username, product,
+price, currency, and transaction_id.
+
+Security notes:
+- CraftingStore webhook availability may depend on the active plan.
+- Put the AetherCraft secret in the webhook URL or supported custom header.
+- Never include player IP or email in public popup text.
+
+
+============================================================
+3. PAYNOW.GG
+============================================================
+
+PayNow webhooks use a root event structure similar to:
+
+    event_type
+    event_id
+    body
+
+Common event types include:
+    ON_ORDER_COMPLETED
+    ON_REFUND
+    ON_CHARGEBACK
+    ON_SUBSCRIPTION_ACTIVATED
+    ON_SUBSCRIPTION_RENEWED
+    ON_SUBSCRIPTION_CANCELED
+
+Example adaptable payload shape:
+
+    {
+      "event_type": "ON_ORDER_COMPLETED",
+      "event_id": "411486491630370816",
+      "body": {
+        "order": {
+          "id": "order_123",
+          "total": 19.99,
+          "currency": "USD"
+        },
+        "customer": {
+          "username": "ExamplePlayer"
+        },
+        "products": [
+          { "name": "Legend Rank" }
+        ]
+      }
+    }
+
+Recommended mapping:
+    source   = root.event_type
+    id       = root.event_id OR body.order.id
+    player   = body.customer.username
+    product  = joined body.products[].name
+    total    = body.order.total
+    currency = body.order.currency
+
+Only announce:
+    ON_ORDER_COMPLETED
+
+Do not announce as purchases:
+    ON_REFUND
+    ON_CHARGEBACK
+    cancellation/revocation events
+
+The precise nested body properties must be confirmed from the PayNow event
+schema and a real test payload for the event you subscribe to.
+
+
+============================================================
+4. BUILTBYBIT CREATOR WEBHOOKS
+============================================================
+
+BuiltByBit creator webhooks support triggers and placeholders. The request body
+can be customized, so create a JSON body that matches AetherCraft directly.
+
+Recommended custom body:
+
+    {
+      "event": "purchase.completed",
+      "provider": "builtbybit",
+      "username": "REPLACE_WITH_BUILTBYBIT_BUYER_PLACEHOLDER",
+      "product": "REPLACE_WITH_RESOURCE_NAME_PLACEHOLDER",
+      "amount": "REPLACE_WITH_PURCHASE_AMOUNT_PLACEHOLDER",
+      "currency": "USD",
+      "transaction_id": "REPLACE_WITH_PURCHASE_ID_PLACEHOLDER"
+    }
+
+Use the exact placeholder names shown in the current BuiltByBit webhook editor,
+because available placeholders may change by trigger.
+
+Recommended mapping:
+    source   = event
+    id       = transaction_id
+    player   = username
+    product  = product
+    total    = amount
+    currency = currency
+
+
+============================================================
+5. MINESTORECMS / SELF-HOSTED MINECRAFT STORES
+============================================================
+
+Self-hosted stores differ by version, plugin, payment gateway, and custom code.
+Look for these common paths:
+
+Customer/player:
+    customer.username
+    customer.minecraft_username
+    user.username
+    player.username
+    minecraft.username
+    ign
+
+Product:
+    product.name
+    package.name
+    item.name
+    order.items[0].name
+    order.products[0].name
+
+Amount:
+    amount
+    total
+    total_price
+    order.total
+    payment.amount
+
+ID:
+    id
+    transaction_id
+    order.id
+    payment.id
+
+Currency:
+    currency
+    order.currency
+    payment.currency
+
+Generic example:
+
+    {
+      "event": "order.paid",
+      "order": {
+        "id": "MS-1001",
+        "total": 12.50,
+        "currency": "USD",
+        "items": [
+          { "name": "VIP Rank" }
+        ]
+      },
+      "customer": {
+        "minecraft_username": "ExamplePlayer"
+      }
+    }
+
+This format requires adding order/customer aliases to store-webhook.php unless
+it is transformed by a relay first.
+
+
+============================================================
+6. MINECRAFTMARKET / OTHER TEMPLATE-BASED GAME STORES
+============================================================
+
+Many game-store webhook systems let you build a custom request from placeholders.
+Use this provider-neutral JSON template whenever possible:
+
+    {
+      "event": "payment.completed",
+      "provider": "your-store-name",
+      "username": "PLAYER_PLACEHOLDER",
+      "uuid": "UUID_PLACEHOLDER",
+      "product": "PRODUCT_PLACEHOLDER",
+      "amount": "AMOUNT_PLACEHOLDER",
+      "currency": "CURRENCY_PLACEHOLDER",
+      "transaction_id": "TRANSACTION_PLACEHOLDER",
+      "timestamp": "TIMESTAMP_PLACEHOLDER"
+    }
+
+Replace only the uppercase placeholder values using the store's webhook editor.
+This is the easiest format because it already matches AetherCraft aliases.
+
+
+============================================================
+7. SHOPIFY ORDER WEBHOOKS
+============================================================
+
+Shopify order webhooks commonly contain root order fields and arrays such as:
+
+    id
+    name
+    email
+    total_price
+    presentment_currency
+    currency
+    financial_status
+    customer
+    line_items
+
+Example simplified shape:
+
+    {
+      "id": 123456789,
+      "name": "#1001",
+      "financial_status": "paid",
+      "total_price": "29.99",
+      "currency": "USD",
+      "customer": {
+        "first_name": "Alex"
+      },
+      "line_items": [
+        { "name": "Server T-Shirt" }
+      ],
+      "note_attributes": [
+        { "name": "minecraft_username", "value": "ExamplePlayer" }
+      ]
+    }
+
+Recommended mapping:
+    source   = "shopify/orders-paid"
+    id       = id
+    player   = minecraft_username note attribute OR customer.first_name
+    product  = joined line_items[].name
+    total    = total_price
+    currency = currency OR presentment_currency
+
+Security:
+- Validate Shopify's current HMAC signature header.
+- Subscribe to the paid-order event rather than announcing every created order.
+- Do not expose customer email, address, phone, or full legal name.
+
+
+============================================================
+8. WOOCOMMERCE ORDER WEBHOOKS
+============================================================
+
+WooCommerce order payloads commonly include:
+
+    id
+    status
+    currency
+    total
+    billing
+    meta_data
+    line_items
+
+Example simplified shape:
+
+    {
+      "id": 1001,
+      "status": "processing",
+      "currency": "USD",
+      "total": "24.99",
+      "billing": {
+        "first_name": "Alex"
+      },
+      "meta_data": [
+        { "key": "minecraft_username", "value": "ExamplePlayer" }
+      ],
+      "line_items": [
+        { "name": "Emerald Rank" }
+      ]
+    }
+
+Recommended mapping:
+    source   = "woocommerce/order-paid"
+    id       = id
+    player   = minecraft_username meta_data value OR billing.first_name
+    product  = joined line_items[].name
+    total    = total
+    currency = currency
+
+Only announce paid/processing/completed orders according to your store workflow.
+Validate the WooCommerce webhook signature secret.
+
+
+============================================================
+9. STRIPE PAYMENT WEBHOOKS
+============================================================
+
+Stripe events normally use:
+
+    id
+    type
+    data.object
+
+Useful event types can include:
+    checkout.session.completed
+    payment_intent.succeeded
+
+Example checkout-session shape:
+
+    {
+      "id": "evt_123",
+      "type": "checkout.session.completed",
+      "data": {
+        "object": {
+          "id": "cs_123",
+          "amount_total": 1499,
+          "currency": "usd",
+          "payment_status": "paid",
+          "metadata": {
+            "minecraft_username": "ExamplePlayer",
+            "product_name": "Diamond Rank"
+          }
+        }
+      }
+    }
+
+Recommended mapping:
+    source   = root.type
+    id       = root.id OR data.object.id
+    player   = data.object.metadata.minecraft_username
+    product  = data.object.metadata.product_name
+    total    = data.object.amount_total / 100
+    currency = uppercase(data.object.currency)
+
+Security:
+- Verify the Stripe-Signature header with the webhook signing secret.
+- Use the raw request body for signature verification.
+- amount_total is normally represented in the currency's smallest unit.
+- Process each Stripe event ID only once.
+
+
+============================================================
+10. PAYPAL WEBHOOKS
+============================================================
+
+PayPal webhooks commonly use:
+
+    id
+    event_type
+    resource
+
+Example adaptable shape:
+
+    {
+      "id": "WH-123",
+      "event_type": "PAYMENT.CAPTURE.COMPLETED",
+      "resource": {
+        "id": "CAPTURE-123",
+        "amount": {
+          "value": "9.99",
+          "currency_code": "USD"
+        },
+        "custom_id": "ExamplePlayer|VIP Rank"
+      }
+    }
+
+Recommended mapping:
+    source   = event_type
+    id       = root.id OR resource.id
+    player   = parsed resource.custom_id OR an invoice/custom field
+    product  = parsed resource.custom_id OR invoice metadata
+    total    = resource.amount.value
+    currency = resource.amount.currency_code
+
+Security:
+- Verify the webhook using PayPal's current verification endpoint or SDK.
+- Only announce successful capture/completed-payment events.
+
+
+============================================================
+11. SELLIX / GENERIC DIGITAL-GOODS STORES
+============================================================
+
+Digital-goods platforms commonly use fields similar to:
+
+    event
+    event_type
+    data
+    order
+    customer
+    product
+    total
+    currency
+    transaction_id
+    uniqid
+
+Generic adaptable example:
+
+    {
+      "event": "order:paid",
+      "data": {
+        "uniqid": "ORDER123",
+        "customer": {
+          "username": "ExamplePlayer"
+        },
+        "product": {
+          "name": "VIP Rank"
+        },
+        "total": 9.99,
+        "currency": "USD"
+      }
+    }
+
+Confirm exact fields and signature headers in the provider's current developer
+documentation before implementation.
+
+
+============================================================
+12. DISCORD WEBHOOK / BOT RELAY PAYLOADS
+============================================================
+
+A standard Discord incoming webhook is designed to RECEIVE messages into Discord.
+It does not automatically send Discord messages back to AetherCraft.
+
+To show a Discord-originated notification on the website, use one of these:
+    - A Discord bot that POSTs JSON to store-webhook.php
+    - Make.com, Zapier, or another automation relay
+    - A custom server process that watches a Discord channel
+
+Recommended relay body:
+
+    {
+      "event": "discord.purchase.relay",
+      "username": "ExamplePlayer",
+      "product": "Diamond Rank",
+      "amount": 14.99,
+      "currency": "USD",
+      "transaction_id": "discord-message-123"
+    }
+
+The relay must use a protected secret and should only accept messages from an
+approved channel/bot. Never parse arbitrary public Discord messages as purchases.
+
+
+============================================================
+13. MAKE.COM / ZAPIER / PIPEDREAM RELAY FORMAT
+============================================================
+
+When a provider cannot send the required format directly, transform it into:
+
+    {
+      "event": "payment.completed",
+      "provider": "original-provider",
+      "username": "mapped player field",
+      "product": "mapped product field",
+      "amount": 0.00,
+      "currency": "USD",
+      "transaction_id": "mapped unique event ID"
+    }
+
+POST it to:
+
+    https://YOUR-DOMAIN.com/php/store-webhook.php?secret=YOUR_SECRET
+
+Header:
+    Content-Type: application/json
+
+A relay is especially useful for nested arrays, line items, custom metadata, or
+providers that cannot set a custom JSON body.
+
+
+============================================================
+14. UNIVERSAL FIELD-ALIAS REFERENCE
+============================================================
+
+PLAYER / CUSTOMER NAME ALIASES
+------------------------------
+    username
+    player
+    player_name
+    playerName
+    ign
+    in_game_name
+    minecraft_username
+    minecraftUsername
+    customer.username
+    customer.name
+    customer.display_name
+    user.username
+    user.name
+    buyer.username
+    buyer.name
+    order.customer.username
+    metadata.minecraft_username
+
+PRODUCT / PACKAGE ALIASES
+-------------------------
+    product
+    product_name
+    productName
+    item
+    item_name
+    package
+    package_name
+    payment_name
+    package.name
+    product.name
+    item.name
+    order.item.name
+    order.items[].name
+    line_items[].name
+    products[].name
+    packages[].name
+    metadata.product_name
+
+PRICE / TOTAL ALIASES
+---------------------
+    price
+    amount
+    total
+    total_price
+    grand_total
+    paid
+    payment_total
+    order.total
+    order.amount
+    payment.amount
+    resource.amount.value
+    data.object.amount_total
+
+CURRENCY ALIASES
+----------------
+    currency
+    currency_code
+    currencyCode
+    order.currency
+    payment.currency
+    resource.amount.currency_code
+    data.object.currency
+
+ID / DEDUPLICATION ALIASES
+--------------------------
+    id
+    event_id
+    webhook_id
+    transaction_id
+    transactionId
+    external_transaction_id
+    payment_id
+    order_id
+    order.id
+    payment.id
+    resource.id
+    data.object.id
+    uniqid
+
+EVENT TYPE ALIASES
+------------------
+    event
+    event_type
+    eventType
+    type
+    subject
+    topic
+    action
+
+PAYMENT STATUS ALIASES
+----------------------
+    status
+    payment_status
+    financial_status
+    state
+    order.status
+    payment.status
+    data.object.payment_status
+
+Common successful values:
+    paid
+    complete
+    completed
+    succeeded
+    successful
+    processing
+    PAYMENT.CAPTURE.COMPLETED
+    checkout.session.completed
+    payment_intent.succeeded
+    ON_ORDER_COMPLETED
+
+Do not assume "processing" is paid unless that matches your store workflow.
+
+
+============================================================
+15. RECOMMENDED UNIVERSAL PHP LOOKUP APPROACH
+============================================================
+
+For future expansion, use a helper capable of reading dotted paths:
+
+    function getPath(array $source, string $path) {
+      $value = $source;
+      foreach (explode('.', $path) as $key) {
+        if (!is_array($value) || !array_key_exists($key, $value)) {
+          return null;
+        }
+        $value = $value[$key];
+      }
+      return $value;
+    }
+
+Then try aliases in order:
+
+    $playerPaths = [
+      'data.customer.username',
+      'data.username',
+      'body.customer.username',
+      'customer.minecraft_username',
+      'metadata.minecraft_username',
+      'username',
+      'player',
+      'ign'
+    ];
+
+Use the first non-empty value. Arrays such as line_items require separate joining
+logic rather than a simple dotted path.
+
+
+============================================================
+16. CURL TEST COMMANDS
+============================================================
+
+Generic AetherCraft-compatible test:
+
+    curl -X POST \
+      "https://YOUR-DOMAIN.com/php/store-webhook.php?secret=YOUR_SECRET" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "event":"payment.completed",
+        "username":"ExamplePlayer",
+        "product":"Diamond Rank",
+        "amount":14.99,
+        "currency":"USD",
+        "transaction_id":"test-1001"
+      }'
+
+PowerShell example:
+
+    $body = @{
+      event = "payment.completed"
+      username = "ExamplePlayer"
+      product = "Diamond Rank"
+      amount = 14.99
+      currency = "USD"
+      transaction_id = "test-1001"
+    } | ConvertTo-Json
+
+    Invoke-RestMethod `
+      -Method Post `
+      -Uri "https://YOUR-DOMAIN.com/php/store-webhook.php?secret=YOUR_SECRET" `
+      -ContentType "application/json" `
+      -Body $body
+
+Expected response:
+
+    {
+      "ok": true,
+      "event": {
+        "id": "test-1001",
+        "player": "ExamplePlayer",
+        "product": "Diamond Rank",
+        "total": 14.99,
+        "currency": "USD"
+      }
+    }
+
+Then open the website and wait for store-feed.php polling to display the popup.
+
+
+============================================================
+17. RAW PAYLOAD DEBUGGING
+============================================================
+
+During setup only, temporarily log the raw body:
+
+    file_put_contents(
+      __DIR__ . '/../data/last-webhook-debug.json',
+      $raw,
+      LOCK_EX
+    );
+
+Remove or protect the debug file before production because payloads may contain
+private customer information.
+
+Recommended workflow:
+1. Send provider test webhook.
+2. Inspect last-webhook-debug.json privately.
+3. Identify event, ID, player, product, total, and currency paths.
+4. Add aliases or provider-specific mapping.
+5. Verify signature/security.
+6. Remove debug logging.
+7. Test duplicate deliveries.
+
+
+============================================================
+18. PRODUCTION SECURITY CHECKLIST
+============================================================
+
+[ ] Use HTTPS.
+[ ] Replace CHANGE_THIS_SECRET.
+[ ] Prefer a secret header over a URL query parameter when supported.
+[ ] Verify the provider's official HMAC/signature.
+[ ] Check the payment event/status before announcing it.
+[ ] Reject refunds, disputes, chargebacks, and failed payments as purchases.
+[ ] Deduplicate using webhook/event/transaction ID.
+[ ] Return a successful response quickly after validation/storage.
+[ ] Keep customer email, IP, address, and legal name out of public popups.
+[ ] Restrict data/store-events.json from direct public browsing where possible.
+[ ] Limit stored events and rotate logs.
+[ ] Use file locking or a database for concurrent webhooks.
+[ ] Rate-limit failed secret/signature attempts.
+[ ] Test provider retries and duplicate delivery behavior.
+[ ] Keep provider documentation and SDK versions current.
+
+
+============================================================
+19. SOURCE AND VERSION NOTES
+============================================================
+
+This guide was updated July 21, 2026 using current public documentation for:
+- Tebex creator/checkout webhooks
+- CraftingStore custom JSON webhook placeholders
+- PayNow webhook event structure
+- BuiltByBit customizable creator webhooks
+
+Shopify, WooCommerce, Stripe, PayPal, Discord relay, and generic store examples
+are integration templates. Confirm their current official schemas and signature
+requirements before deploying because payload versions and enabled fields differ.
+

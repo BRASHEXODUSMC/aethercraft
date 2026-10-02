@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="Member account settings" />
+    <title>Account | AetherCraft</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div id="curtain" class="transition-curtain"></div>
+    <nav class="nav">
+      <div class="wrap nav-inner">
+        <a class="brand" href="index.html" data-transition
+          ><span class="brand-cube"></span
+          ><strong data-server-name>AetherCraft</strong></a
+        ><button id="mobileToggle" class="btn ghost mobile-toggle">Menu</button>
+        <div id="navLinks" class="links">
+          <a href="index.html" data-transition>Home</a
+          ><a href="forums.html" data-transition>Forums</a
+          ><a href="vote.html" data-transition>Vote</a
+          ><a href="players.html" data-transition>Players</a
+          ><a href="items.html" data-transition>Items</a
+          ><a href="staff.html" data-transition>Staff</a
+          ><a href="admin.html" data-transition>Admin</a><a href="build-academy.html" data-transition>Build Academy</a>
+        </div>
+        <div class="nav-actions" data-auth-actions></div>
+      </div>
+    </nav>
+    <main id="accountPage">
+      <section class="page-hero">
+        <div class="wrap">
+          <span class="kicker">MEMBER PROFILE</span>
+          <h1 class="page-title">Account settings</h1>
+          <p>
+            Manage your community profile and link your Minecraft and Discord
+            identities.
+          </p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap account-grid">
+          <aside class="card profile-card">
+            <img
+              id="linkedSkin"
+              class="profile-avatar"
+              alt="Linked Minecraft skin"
+            />
+            <h2 data-profile-username>Member</h2>
+            <span class="tag green" data-profile-role>Member</span>
+            <p class="muted" data-profile-email></p>
+            <p class="account-note">
+              Joined: <span data-profile-joined></span>
+            </p>
+            <button class="btn ghost" data-logout style="width: 100%">
+              Log out
+            </button>
+          </aside>
+          <div>
+            <div class="connection-grid">
+              <article class="card connection-card">
+                <span class="kicker">MINECRAFT</span>
+                <h2>Link your player</h2>
+                <p class="muted">
+                  Enter a Java Edition username. The website checks a browser-friendly profile API and saves the username and UUID to this browser profile.
+                </p>
+                <form id="minecraftLinkForm">
+                  <div class="field">
+                    <label>Minecraft username</label
+                    ><input
+                      id="minecraftUsername"
+                      class="input"
+                      maxlength="16"
+                      pattern="[A-Za-z0-9_]{3,16}"
+                      required
+                      placeholder="Steve"
+                    />
+                  </div>
+                  <button class="btn primary">Link Minecraft account</button>
+                </form>
+                <div id="minecraftLinkStatus" class="linked-status"></div>
+                <div class="account-actions">
+                  <button id="unlinkMinecraft" class="btn ghost" type="button">
+                    Unlink Minecraft</button
+                  ><a class="btn ghost" href="players.html" data-transition
+                    >Open player lookup</a
+                  >
+                </div>
+              </article>
+              <article class="card connection-card">
+                <span class="kicker">DISCORD</span>
+                <h2>Link Discord details</h2>
+                <p class="muted">
+                  Save the Discord identity shown on your community profile. A
+                  production website can replace this with Discord OAuth.
+                </p>
+                <form id="discordLinkForm">
+                  <div class="field">
+                    <label>Discord username</label
+                    ><input
+                      id="discordUsername"
+                      class="input"
+                      required
+                      placeholder="playername"
+                    />
+                  </div>
+                  <div class="field">
+                    <label
+                      >Discord user ID
+                      <span class="muted">(optional)</span></label
+                    ><input
+                      id="discordId"
+                      class="input"
+                      inputmode="numeric"
+                      placeholder="123456789012345678"
+                    />
+                  </div>
+                  <button class="btn purple">Link Discord account</button>
+                </form>
+                <div id="discordLinkStatus" class="linked-status"></div>
+                <button id="unlinkDiscord" class="btn ghost" type="button">
+                  Unlink Discord
+                </button>
+              </article>
+            </div>
+            <article class="card" style="margin-top: 18px">
+              <span class="kicker">PROFILE</span>
+              <h2>Account information</h2>
+              <form id="profileForm">
+                <div class="field">
+                  <label>Profile bio</label>
+                  <textarea id="profileBio" class="textarea" maxlength="500" placeholder="Tell the community about yourself, your builds, and what you enjoy on the server."></textarea>
+                </div>
+                <div class="profile-form-grid">
+                  <div class="field"><label>Status</label><input id="profileStatus" class="input" maxlength="60" placeholder="Community member" /></div>
+                  <div class="field"><label>Favorite game mode</label><input id="profileFavoriteMode" class="input" maxlength="60" placeholder="Survival, Skyblock, Creative..." /></div>
+                  <div class="field"><label>Location <span class="muted">(optional)</span></label><input id="profileLocation" class="input" maxlength="80" placeholder="United States" /></div>
+                  <div class="field"><label>Website <span class="muted">(optional)</span></label><input id="profileWebsite" class="input" type="url" placeholder="https://example.com" /></div>
+                </div>
+
+                <div class="profile-form-grid">
+                  <div class="field"><label>Public profile name</label><input id="profileDisplayName" class="input" maxlength="50" placeholder="Brash the Builder"></div>
+                  <div class="field"><label>Planet Minecraft URL</label><input id="profilePlanetMinecraft" class="input" type="url" placeholder="https://www.planetminecraft.com/member/..."></div>
+                  <div class="field"><label>YouTube channel URL</label><input id="profileYouTube" class="input" type="url" placeholder="https://youtube.com/@..."></div>
+                  <div class="field"><label>Discord invite/profile URL</label><input id="profileDiscordLink" class="input" type="url" placeholder="https://discord.gg/..."></div>
+                  <div class="field"><label>Twitch URL</label><input id="profileTwitch" class="input" type="url" placeholder="https://twitch.tv/..."></div>
+                  <div class="field"><label>GitHub URL</label><input id="profileGithub" class="input" type="url" placeholder="https://github.com/..."></div>
+                </div>
+                <div class="profile-gallery-editor">
+                  <div class="profile-section-title"><h3>Personal build gallery</h3><span class="tag green">UP TO 8</span></div>
+                  <p class="muted">Upload screenshots of your Minecraft builds. Images are resized automatically for browser storage.</p>
+                  <input id="profileGalleryInput" class="input" type="file" accept="image/*" multiple>
+                  <div id="profileGalleryEditor" class="profile-gallery-editor-grid"></div>
+                </div>
+                <div class="field"><label>Forum signature text</label><textarea id="profileSignatureText" class="textarea" maxlength="240" placeholder="A short message shown below your forum posts and replies."></textarea></div>
+                <div class="profile-upload-grid">
+                  <div class="profile-upload-box"><label>Profile picture</label><input id="profileImageInput" class="input" type="file" accept="image/*"><img id="profileImagePreview" alt="Profile picture preview"></div>
+                  <div class="profile-upload-box"><label>Signature image</label><input id="signatureImageInput" class="input" type="file" accept="image/*"><img id="signatureImagePreview" alt="Signature image preview"><button id="removeSignatureImage" class="btn ghost" type="button">Remove signature image</button></div>
+                </div>
+                <div class="field">
+                  <label>Email address</label>
+                  ><input
+                    id="profileEmail"
+                    class="input"
+                    type="email"
+                    placeholder="you@example.com"
+                  />
+                </div>
+                <button class="btn primary">Save profile</button> <a class="btn ghost" id="viewPublicProfile" href="profile.html" data-transition>View public profile</a>
+              </form>
+              <p class="account-note">
+                This HTML template stores demo account connections in your browser. Minecraft username linking confirms that the profile exists, but it does not prove ownership. Secure verification, shared accounts, and official Discord authorization require a backend or Minecraft server plugin.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="wrap footer-grid">
+        <div>
+          <div class="brand">
+            <span class="brand-cube"></span
+            ><strong data-server-name>AetherCraft</strong>
+          </div>
+          <p>Reusable community website template for Minecraft servers.</p>
+        </div>
+        <div>
+          <strong>Explore</strong>
+          <p>
+            <a href="forums.html" data-transition>Forums</a><a href="achievements.html" data-transition>Achievements</a><br /><a
+              href="vote.html"
+              data-transition
+              >Vote</a
+            ><br /><a href="items.html" data-transition>Item guide</a>
+          </p>
+        </div>
+        <div>
+          <strong>Server</strong>
+          <p>
+            <span data-server-ip>play.example.net</span><br /><a
+              data-discord
+              href="#"
+              >Discord</a
+            ><br /><a data-store href="#">Store</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+    <div id="toast" class="toast"></div>
+    <script src="js/common.js"></script>
+    <script src="js/account.js"></script>
+  </body>
+</html>

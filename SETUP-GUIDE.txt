@@ -1,0 +1,55 @@
+AETHERCRAFT — HTML MINECRAFT SERVER TEMPLATE
+
+WHAT THIS ZIP IS
+- A normal multi-page HTML/CSS/JavaScript website.
+- No Node.js and no npm are required.
+- Open index.html directly for the design and local demo features.
+- Use a small local web server for API/data loading because browsers may block fetch() from file://.
+
+FAST PREVIEW
+1. Extract the ZIP.
+2. In VS Code, install Live Server and open index.html with Live Server.
+   OR run: python -m http.server 8080
+3. Visit http://localhost:8080
+
+CUSTOMIZE
+- Server name, IP, port, edition, colors, Discord, store, and vote links: data/config.json
+- Main styles: css/style.css
+- Expanded block/item catalog: data/items.json
+- Player API instructions: PLAYER-SEARCH-API-GUIDE.txt
+- Staff: staff.html
+
+DEMO ADMIN
+Username: admin
+Password: BlockAdmin123!
+
+IMPORTANT: STATIC HTML VS REAL SHARED DATA
+The HTML demo uses localStorage for accounts, forum topics, replies, reactions, and dashboard data. That means the data stays only in the visitor's browser. This is useful for previewing and customizing the template, but it is not a secure multi-user production backend.
+
+For real shared accounts, secure passwords, persistent forums, uploads, purchase webhooks, and analytics, use PHP/MySQL hosting. Starter files are included in /php and /database. The database/install.sql file creates the initial tables. A production implementation must add CSRF protection, prepared statements, upload validation, rate limiting, email verification, password reset, moderation logs, and store webhook signature verification.
+
+API FEATURES
+- Live server status: mcstatus.io status endpoint configured in js/common.js.
+- Java username/UUID lookup: Minecraft Services profile endpoint configured in js/players.js.
+- Browser-to-API fallback: php/profile-proxy.php (see PLAYER-SEARCH-API-GUIDE.txt).
+- Skin preview/download: mc-heads.net image service.
+
+VOTING IFRAMES
+Some voting providers send security headers that prevent embedding. This is controlled by the provider, not your website. The page includes an external fallback button. Replace the sample URLs with your actual server listing URLs.
+
+STORE PURCHASES
+The admin purchase list is demo data. Connect your Tebex or other store provider through a verified server-side webhook before displaying real purchases. Never trust purchase data sent by browser JavaScript.
+
+COPYRIGHT
+The template uses CSS-created pixel/block visuals and emoji placeholders rather than shipping copyrighted Minecraft textures. Replace placeholders only with artwork you have permission to use. This is an unofficial community template and is not affiliated with Mojang or Microsoft.
+
+
+DEDICATED LOADER PAGE
+---------------------
+The loading animation now lives only in loader.html. Opening any public page for the first time in a browser session automatically routes through loader.html, then returns to the requested page. Normal page-to-page navigation does not replay the loader. To preview it again, close the tab/session or clear the ac_loaded sessionStorage value in browser developer tools.
+
+
+V1.4 UPDATE
+- Every item modal now shows a crafting pattern or a clearly labeled obtaining method.
+- Forum typing shows top-right login status and guest posting is blocked.
+- Staff cards can be edited by an Administrator directly on staff.html; Minecraft usernames synchronize the visible name and head automatically.

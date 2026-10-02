@@ -1,0 +1,19 @@
+AETHERCRAFT v2.5 - ACHIEVEMENT SYSTEM
+
+Open achievements.html to browse every available achievement.
+
+FEATURES
+- 60 achievements across 12 categories
+- Common, Uncommon, Rare, Epic, Legendary and Mythic rarity tiers
+- Earned/locked display
+- Live progress bars and requirement counters
+- Trophy point totals
+- Member selector for viewing community progress
+- Automatic tracking from existing profiles, topics, replies, reactions, views, gallery uploads, social links, Minecraft linking, join dates and roles
+- Existing localStorage data remains compatible
+
+ADDING AN ACHIEVEMENT
+Edit js/achievements-core.js. Each definition includes an id, icon, name, category, rarity, description, progress function and goal.
+
+STATIC SITE NOTE
+Progress is stored/calculated in the current browser because this edition uses localStorage. A production multi-user website requires a database/backend.

@@ -1,0 +1,25 @@
+{
+  "serverName": "AetherCraft",
+  "tagline": "Adventure begins one block at a time.",
+  "serverAddress": "play.example.net",
+  "serverPort": 25565,
+  "edition": "java",
+  "discordUrl": "https://discord.gg/example",
+  "storeUrl": "https://example.com/store",
+  "accent": "#78d64b",
+  "accent2": "#7b59ff",
+  "voteSites": [
+    {
+      "name": "Minecraft Servers",
+      "url": "https://minecraftservers.org/"
+    },
+    {
+      "name": "Planet Minecraft",
+      "url": "https://www.planetminecraft.com/servers/"
+    },
+    {
+      "name": "Minecraft-MP",
+      "url": "https://minecraft-mp.com/"
+    }
+  ]
+}

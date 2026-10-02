@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="AetherCraft loading screen" />
+    <title>Loading | AetherCraft</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="loader-page">
+    <main class="loader-page-shell" aria-live="polite">
+      <div class="loader-content">
+        <div class="loader-logo" data-server-name>AetherCraft</div>
+        <div class="orbit" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <div class="load-track"><div id="loadBar" class="load-bar"></div></div>
+        <div class="load-label">
+          <span id="loadText">Generating world...</span
+          ><span id="loadPct">0%</span>
+        </div>
+      </div>
+    </main>
+    <div id="loaderExit" class="loader-exit" aria-hidden="true"></div>
+    <script src="js/loader-page.js"></script>
+  </body>
+</html>

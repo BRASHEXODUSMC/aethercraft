@@ -1,0 +1,18 @@
+AETHERCRAFT v2.3 PROFESSIONAL FORUM GUIDE
+
+Included features:
+- Centered Create Topic modal with Escape/backdrop close and title autofocus.
+- Minecraft category cards.
+- Pinned topics sorted first in every category.
+- Configurable Hot Topic reply threshold in Admin > Site settings.
+- Solved status for FAQ and Support topics, controlled by author or admin.
+- Topic view counters.
+- Online status based on recent activity in the same shared website storage.
+- Role badges: Founder, Administrator, Moderator, Builder, Veteran, Donator, Member.
+- Reputation levels calculated from reactions.
+- Hover profile cards on forum authors.
+- Rank colors editable in Admin > Site settings.
+- Drag-and-drop image uploader with count, thumbnails, delete controls, and automatic resizing.
+
+STATIC SITE NOTE
+This version stores data in localStorage. Online indicators and forum data are shared only within the same browser unless the site is connected to a real backend/database.

@@ -1,0 +1,35 @@
+AETHERCRAFT BUILD ACADEMY v2.7 — EXPANDED TUTORIAL LIBRARY
+
+This release expands the Build Academy while leaving the rest of AetherCraft v2.6 intact.
+
+WHAT IS INCLUDED
+- 60+ searchable built-in build tutorials/concepts.
+- Categories covering Castle, Tower, House, Fantasy, Infrastructure, Farm, Decoration, Interior, Nether, Survival, Landscaping, Redstone, Vehicle, Pixel Art and Community builds.
+- Search matches tutorial title, category, description and tags.
+- Difficulty filters remain available.
+- Every tutorial has dimensions, starter materials, build notes, a layer-by-layer structural guide and interactive voxel preview.
+- Each tutorial includes generated YouTube and Planet Minecraft search links for additional visual references.
+- No API key is required for the built-in library or external search links.
+
+IMPORTANT ABOUT THE LAYER GUIDES
+The built-in layer plans are structural teaching blueprints. They are intended to teach footprint, massing, wall height, roof/cap progression and symmetry. They are not copies of third-party creators' builds. Players should customize block palettes and detailing.
+
+OPTIONAL API EXPANSION
+A future backend can expose a JSON tutorial endpoint and merge remote tutorials into BUILDS. Recommended fields:
+{
+  "id":"unique-id",
+  "title":"Build title",
+  "category":"Castle",
+  "difficulty":"Intermediate",
+  "size":[15,11,10],
+  "desc":"Description",
+  "tags":["castle","medieval"],
+  "materials":[["Stone Bricks",200]],
+  "tips":["Tip"],
+  "layers":[{"name":"Foundation","note":"...","blocks":[{"x":0,"y":0,"z":0,"t":"stone"}]}]
+}
+
+For a public production site, validate/sanitize remote tutorial data server-side, cache responses, rate-limit submissions, and never expose private API keys in browser JavaScript.
+
+NATIVE SCHEMATIC NOTE
+The existing Blueprint Lab safely handles AetherCraft JSON. Native .schem, .litematic and .mcstructure conversion still requires format-specific parsers and Minecraft-version-aware block-state translation. Do not rename binary files and call that a conversion.

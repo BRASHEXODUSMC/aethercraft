@@ -1,0 +1,46 @@
+AETHERCRAFT STATIC API + STORE SETUP
+
+PLAYER SEARCH WITH VS CODE LIVE SERVER
+Minecraft profile endpoints do not allow browser CORS requests. Live Server cannot execute PHP. You have three practical choices:
+
+1. Recommended local setup: XAMPP
+- Put this folder in C:\xampp\htdocs\aethercraft
+- Start Apache.
+- In js/players.js set mode to proxy.
+- Open http://localhost/aethercraft/loader.html
+- Test http://localhost/aethercraft/php/profile-proxy.php?name=Notch
+
+2. PHP built-in server
+- Install PHP.
+- Open a terminal in this folder.
+- Run: php -S localhost:8080
+- Open http://localhost:8080/loader.html
+
+3. Truly static hosting
+- A static site cannot safely proxy Minecraft API requests by itself.
+- Deploy php/profile-proxy.php on PHP hosting, or create a serverless proxy (Cloudflare Worker, Netlify Function, Vercel Function).
+- Change the proxyPath setting in js/players.js to that HTTPS endpoint.
+- Do not use mode: no-cors; JavaScript cannot read that response.
+
+STORE PURCHASE POPUPS / TEBEX
+A static Live Server page cannot receive webhooks. The included PHP receiver works on XAMPP/cPanel/PHP hosting.
+
+Files:
+- php/store-webhook.php receives POST requests.
+- php/store-feed.php exposes the latest saved events to the site.
+- data/store-events.json stores the last 50 events.
+
+Setup:
+1. Set environment variable AETHERCRAFT_WEBHOOK_SECRET to a long random value. On basic hosting, replace CHANGE_THIS_SECRET in php/store-webhook.php (environment variables are safer).
+2. Make data/store-events.json writable by PHP. Use the least-permissive file permissions your host supports.
+3. In Tebex or your store provider, create a webhook pointing to:
+   https://YOUR-DOMAIN.com/php/store-webhook.php?secret=YOUR_SECRET
+4. Send JSON POST events. The starter maps common username, product, total, currency, and transaction fields. Providers use different payloads, so adjust the mapping block in store-webhook.php to match the provider documentation.
+5. The website polls php/store-feed.php once per minute and shows unseen purchases as top-right green bubbles.
+
+SECURITY
+- Verify your store provider's official signature/HMAC header in production, not only a URL secret.
+- Use HTTPS.
+- Never expose a private store API key in JavaScript.
+- Move event storage to MySQL for a busy production site.
+- Sanitize and validate all webhook fields.

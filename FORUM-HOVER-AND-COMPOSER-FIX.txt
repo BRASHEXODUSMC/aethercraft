@@ -1,0 +1,26 @@
+AETHERCRAFT v2.3.1 - FORUM HOVER AND COMPOSER FIX
+=================================================
+
+PROFILE HOVER CARD
+------------------
+The profile preview now remains visible while the pointer moves from a forum
+avatar or username onto the preview card. The View Profile button can be
+clicked without the card disappearing or flickering.
+
+CREATE TOPIC MODAL
+------------------
+The topic composer is attached directly to the page body, centered in the
+browser viewport, and limited to the visible screen height. When the form is
+taller than the screen, only the modal panel scrolls. The page behind it stays
+locked in place.
+
+CONTROLS
+--------
+- Click Create Topic to open the centered composer.
+- Scroll inside the composer when necessary.
+- Press Escape, click the X, or click the dark backdrop to close it.
+
+CACHE NOTE
+----------
+After replacing an older version, press Ctrl + F5 once in the browser so the
+updated forums.js and style.css files are loaded.

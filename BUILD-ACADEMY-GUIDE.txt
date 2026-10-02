@@ -1,0 +1,30 @@
+AETHERCRAFT v2.6 - BUILD ACADEMY
+================================
+
+NEW PAGE
+- build-academy.html
+- js/build-academy.js
+- Build Academy styling appended to css/style.css
+
+FEATURES
+- Searchable tutorial library
+- Category and difficulty filters
+- Layer-by-layer top-down plans
+- Previous/next layer controls and slider
+- Material counts and build notes
+- Interactive canvas voxel preview: drag to rotate, mouse wheel to zoom
+- Included sample tutorials: Medieval Castle Gatehouse with portcullis, Survival Watchtower, Medieval Stone Bridge, Starter Cottage
+- External learning links to Minecraft and Planet Minecraft
+- AetherCraft JSON blueprint Java/Bedrock identifier converter
+- JSON import/export, conversion report, unknown-block preservation
+
+IMPORTANT SCHEMATIC FORMAT NOTE
+Native Java .schem/.schematic/.litematic and Bedrock .mcstructure/world formats are different binary/NBT/container formats. A browser-only HTML page cannot safely promise universal lossless conversion without dedicated parsers and version-aware block-state translation. The included Blueprint Lab is intentionally honest: it converts the documented AetherCraft JSON blueprint format and common identifiers locally in the browser. It never uploads the file.
+
+To add native schematic support later, connect this UI to a trusted backend or vetted parser libraries and implement per-format readers/writers plus block-state mappings for each supported Minecraft version. Keep uploads size-limited, parse in an isolated worker/service, reject malformed archives/NBT, and never execute uploaded content.
+
+ADDING TUTORIALS
+Edit BUILDS in js/build-academy.js. Each tutorial has title, category, difficulty, dimensions, description, materials, tips, and generated layer block arrays.
+
+NO EXISTING PAGE LOGIC WAS REBUILT.
+The existing site files remain in place. Navigation received only a Build Academy link so the new page can be reached.

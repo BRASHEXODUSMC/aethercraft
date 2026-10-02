@@ -1,0 +1,45 @@
+AETHERCRAFT FORUM CATEGORIES GUIDE
+=================================
+
+The forum now behaves like a structured Minecraft community board.
+
+AVAILABLE SECTIONS
+------------------
+Community & Introductions
+FAQ & Server Help
+Building Techniques
+Crafting & Recipes
+Redstone Engineering
+Survival & Gameplay
+Farms & Automation
+Mods, Plugins & Datapacks
+Builds & Showcases
+Trading & Marketplace
+Support & Bug Reports
+Off Topic
+
+CREATING A TOPIC
+----------------
+1. Log in.
+2. Open forums.html.
+3. Select Create Topic.
+4. Choose the most appropriate Forum Category.
+5. Add the title, message, tags, images, or video.
+6. Publish the topic.
+
+FILTERING
+---------
+Click any category card to show only that section.
+Use Show all categories to return to the complete forum.
+Search works across titles, messages, categories, and tags.
+
+EXISTING TOPICS
+---------------
+Older topics are preserved. The site automatically assigns them to a category
+based on their title and tags, then saves the updated category to localStorage.
+
+CUSTOMIZATION
+-------------
+Edit FORUM_CATEGORIES near the top of js/forums.js to rename categories,
+change icons, or alter descriptions. Keep the category key synchronized with
+the option values in forums.html.

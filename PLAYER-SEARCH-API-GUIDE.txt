@@ -1,0 +1,44 @@
+AETHERCRAFT PLAYER SEARCH API GUIDE
+
+The player page can look up a Java Edition username, return its UUID, show a body/skin preview, copy the UUID, and open a skin download.
+
+OPTION 1 — DIRECT HTML/JAVASCRIPT (EASIEST)
+1. Run the website through Live Server, Python http.server, or normal web hosting.
+2. Open js/players.js.
+3. Keep PLAYER_API.mode set to 'auto' or change it to 'direct'.
+4. The browser requests:
+   https://api.minecraftservices.com/minecraft/profile/lookup/name/PLAYERNAME
+5. Some browsers, networks, or future API policy changes may block direct cross-origin requests. If that happens, use Option 2.
+
+OPTION 2 — INCLUDED PHP PROXY (RECOMMENDED FOR CPANEL/XAMPP)
+1. Upload the entire template to PHP-enabled hosting or place it inside XAMPP's htdocs folder.
+2. Confirm PHP cURL is enabled. Most cPanel hosts enable it automatically.
+3. Open this test URL in your browser, replacing the domain and username:
+   https://your-domain.com/php/profile-proxy.php?name=Notch
+4. A working response contains an id and name.
+5. Open js/players.js and set PLAYER_API.mode to 'proxy'.
+6. Keep proxyPath as: php/profile-proxy.php?name=
+
+XAMPP EXAMPLE
+1. Put the extracted folder in C:\xampp\htdocs\aethercraft\
+2. Start Apache from the XAMPP Control Panel.
+3. Visit http://localhost/aethercraft/players.html
+4. Set mode to 'proxy' if direct mode is blocked.
+
+HOW IT WORKS
+- Username to UUID/profile: Minecraft Services public profile lookup endpoint.
+- Skin/body image and download link: mc-heads.net.
+- The search is for Java Edition usernames. Bedrock/Xbox identities use a different account system and are not interchangeable.
+
+SECURITY AND RELIABILITY
+- The included proxy validates usernames to letters, numbers, and underscores, with a 16-character maximum.
+- Add caching and rate limiting before using it on a very large public server.
+- Do not place Microsoft account tokens, passwords, or private API keys in browser JavaScript. This lookup does not require them.
+- Third-party skin previews can become unavailable. You may replace mc-heads.net with another permitted skin rendering service.
+
+SERVER STATUS API
+The homepage uses mcstatus.io. Java status format:
+https://api.mcstatus.io/v2/status/java/YOUR_SERVER_ADDRESS
+Bedrock status format:
+https://api.mcstatus.io/v2/status/bedrock/YOUR_SERVER_ADDRESS
+Change your address and edition in data/config.json.

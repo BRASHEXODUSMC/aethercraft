@@ -1,0 +1,39 @@
+AETHERCRAFT SKIN DOWNLOAD FIX
+==============================
+
+Version: 2.1.2
+
+WHY THE OLD BUTTON FAILED
+-------------------------
+The old Players page linked directly to:
+
+  https://api.mcheads.org/download/USERNAME
+
+If that provider returned HTTP 502 Bad Gateway, the download stopped. A static
+website cannot repair another provider's gateway, so v2.1.2 no longer relies on
+one download URL.
+
+HOW THE NEW BUTTON WORKS
+------------------------
+The Download skin button now uses JavaScript and the resolved player UUID. It
+tries these raw PNG services in order:
+
+1. mc-heads.net
+2. Crafatar
+3. Minotar
+4. api.mcheads.org
+
+The response must be a valid image before it is saved. The file is downloaded
+as USERNAME-minecraft-skin.png.
+
+STATIC SITE / LIVE SERVER FALLBACK
+----------------------------------
+Some providers may permit an image to be displayed but block JavaScript fetch
+requests because of CORS. If every automatic request is blocked, the site opens
+the raw skin PNG in a new browser tab. Right-click the image and choose Save
+Image As. This fallback still avoids the old /download gateway route.
+
+AFTER UPDATING
+--------------
+Open players.html through VS Code Live Server and press Ctrl + F5 once to clear
+the old players.js file from the browser cache.

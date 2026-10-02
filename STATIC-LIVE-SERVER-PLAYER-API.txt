@@ -1,0 +1,61 @@
+AETHERCRAFT STATIC PLAYER SEARCH — VS CODE LIVE SERVER
+======================================================
+
+This version works directly from VS Code Live Server. Node.js, PHP, XAMPP and
+an API key are not required for the normal player lookup.
+
+PRIMARY PROFILE API
+-------------------
+Provider: mc-api.io
+Profile request:
+https://mc-api.io/profile/PLAYER_NAME/java
+
+UUID request fallback:
+https://mc-api.io/uuid/PLAYER_NAME/java
+
+The website calls these endpoints from js/players.js.
+
+SKIN, HEAD AND BODY API
+-----------------------
+Provider: MC Heads
+Full body:
+https://api.mcheads.org/player/PLAYER_NAME/256
+
+Head:
+https://api.mcheads.org/head/PLAYER_NAME/96
+
+Raw skin:
+https://api.mcheads.org/skin/PLAYER_NAME
+
+Skin download:
+https://api.mcheads.org/download/PLAYER_NAME
+
+MC Heads explicitly supports browser CORS requests and does not require an API
+key. The template also keeps PlayerDB and php/profile-proxy.php as fallbacks.
+
+HOW TO USE WITH VS CODE
+-----------------------
+1. Open the extracted website folder in VS Code.
+2. Install the Live Server extension.
+3. Right-click loader.html or index.html.
+4. Choose Open with Live Server.
+5. Open the Players page.
+6. Search a valid Minecraft Java Edition username, such as Notch.
+
+CONFIGURATION
+-------------
+Open js/players.js and find PLAYER_API.mode.
+
+static   = Use mc-api.io first. Recommended for Live Server.
+playerdb = Try PlayerDB first, then the static provider.
+proxy    = Only use php/profile-proxy.php. Requires PHP hosting.
+
+NOTES
+-----
+- Minecraft usernames are 1-16 letters, numbers or underscores.
+- A 404 generally means that the exact Java Edition profile was not found.
+- Bedrock/Xbox names are a different identity system and may require a provider
+  that supports Bedrock lookups.
+- Free public APIs can change or experience downtime. That is why this template
+  keeps multiple fallback methods.
+- Do not put secret API keys into JavaScript on a public static website.

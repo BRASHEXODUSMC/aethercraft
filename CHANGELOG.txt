@@ -1,0 +1,121 @@
+AETHERCRAFT v2.3 - PROFESSIONAL FORUM UPDATE
+- Added centered Create Topic modal.
+- Added pinned sorting, hot badges, solved topics, views, online status, user badges, reputation, hover cards, admin rank colors, and upgraded drag/drop uploads.
+- Preserved v2.2 localStorage data compatibility.
+
+AetherCraft v2.1.2 - Reliable Skin Download
+============================================
+- Replaced the single api.mcheads.org /download link that could return 502.
+- Added a UUID-based multi-provider PNG download function.
+- Added image validation before saving the file.
+- Added an Open raw skin fallback for browser/CORS provider failures.
+- Added SKIN-DOWNLOAD-FIX.txt.
+
+AETHERCRAFT TEMPLATE CHANGELOG
+
+v1.9 - Completion update
+- Added green Minecraft cube transition between normal pages.
+- Kept loader.html as the separate once-per-session loader.
+- Changed forum emoji browser into a side drawer so the reply composer stays visible.
+- Added live reply preview while inserting emojis.
+- Raised custom cursor, glow, and fragments above every admin modal and control.
+- Added recent store purchase notification bubbles.
+- Added generic/Tebex-compatible PHP webhook starter and feed endpoint.
+- Added static player-search/API setup notes.
+
+Earlier highlights
+- v1.8.1 emoji cursor fix.
+- v1.8 full paged emoji browser and copy-IP toast.
+- v1.7 rotating announcements, hidden IP reveal, staff hover.
+- v1.6 formatted HTML and centered recipe overlay.
+- v1.4 expanded recipes, forum login notices, staff username/head sync.
+
+VERSION 2.0 - STATIC LIVE SERVER PLAYER API
+-------------------------------------------
+- Replaced the CORS-blocked Minecraft Services browser request with mc-api.io.
+- Added direct static username-to-profile and username-to-UUID lookup.
+- Added MC Heads full-body, head, raw-skin and skin-download integration.
+- Added PlayerDB and PHP proxy fallback providers.
+- Added STATIC-LIVE-SERVER-PLAYER-API.txt setup documentation.
+- Player search now works through VS Code Live Server without Node.js or PHP.
+
+v2.0.1 - Player Head Render Fix
+- Changed player head and full-body render requests to use the resolved UUID.
+- Added automatic MCHeads.org to mc-heads.net image fallbacks.
+- Added a final Steve placeholder so failed image services never leave a broken image.
+- Increased the selected-player head preview and added a visible label.
+
+v2.0.2 - Forum posting and image management
+- Forum topic submission now confirms "Forum post created" instead of repeating the signed-in account notice.
+- Added removable image previews before publishing a topic.
+- Added author/admin delete controls for images inside published topics.
+- Uploaded images are automatically resized in the browser to a maximum of 1280x900 before storage.
+- Forum images now use responsive contained layouts to avoid stretching and overflow.
+
+v2.0.3 - Store webhook documentation
+- Added STORE-WEBHOOK-JSON-FIELD-GUIDE.txt.
+- Documented provider-specific and generic JSON field mappings.
+- Added Tebex, CraftingStore, PayNow, BuiltByBit, MineStore-style, Shopify,
+  WooCommerce, Stripe, PayPal, digital-goods, Discord relay, and automation
+  relay examples.
+- Added universal field aliases, cURL/PowerShell tests, debugging guidance,
+  deduplication notes, and a production security checklist.
+
+v2.0.4 - Static Minecraft account linking
+- Replaced the account page's direct Mojang request, which browsers block because of CORS.
+- Added mc-api.io profile and UUID lookup for VS Code Live Server.
+- Added PlayerDB and the included PHP proxy as automatic fallback providers.
+- Linked profiles now store the resolved Java username and UUID locally.
+- Linked skin rendering now uses the UUID with multiple image-service fallbacks.
+- Clarified that static username linking confirms profile existence but does not verify ownership.
+
+
+VERSION 2.1 - COMMUNITY PROFILE SYSTEM
+- Added public profile viewer and clickable forum usernames.
+- Added linked Minecraft heads in forum cards, replies, profiles, and navbar.
+- Added bios, status, favorite mode, location, website, profile picture, signature text, and signature image uploads.
+- Added topic, reply, reaction, total-post, join-date, and recent-activity statistics.
+- Existing browser accounts and topics remain compatible and are upgraded automatically.
+
+v2.1.1 - Forum Composer Notice + Modern Profiles
+-------------------------------------------------
+- Removed the redundant "Logged in as ..." notification when opening or typing in the Create Topic composer.
+- Guests still receive the required login warning before the composer opens.
+- The successful submit notification remains "Forum post created."
+- Redesigned public member profiles with a modern Minecraft-inspired banner, grid texture, glowing avatar, activity badge, polished statistics, improved details, modern cards, sticky profile sidebar, and better mobile layouts.
+
+
+v2.2 - Structured Minecraft Forum Categories
+----------------------------------------------
+- Added twelve selectable forum sections.
+- Added FAQ, Building Techniques, Crafting & Recipes, Redstone, Survival,
+  Farms, Mods/Plugins, Showcases, Marketplace, Support, Community, and Off Topic.
+- Added a required category selector to the Create Topic composer.
+- Added category cards with live topic totals.
+- Added category filtering and sidebar shortcuts.
+- Added category labels to topic cards and opened discussions.
+- Existing topics are automatically assigned to the closest category.
+- Preserved replies, reactions, uploads, signatures, profiles, and moderation.
+
+v2.3.1 - Forum Interaction Fixes
+- Stabilized forum profile hover cards so they remain open while moving the cursor from an avatar/name onto the card.
+- Made the View Profile button reliably clickable.
+- Added smoother hover-card fade and positioning above or below the author based on available viewport space.
+- Moved the Create Topic modal to the document body to prevent clipping by forum layout containers.
+- Centered the Create Topic modal in the viewport.
+- Added independent modal-panel scrolling for short screens and mobile devices.
+- Added dynamic viewport-height sizing and overscroll containment.
+
+
+v2.4 - Unified Member Profiles
+- Replaced forum hover timing with one shared controller so profile cards remain clickable inside opened topics.
+- Redesigned public profiles as one cohesive Minecraft-style module.
+- Added profile analytics, reaction reputation, trophies, achievements, social links, and build galleries.
+- Added account controls for profile name, community links, and up to eight gallery images.
+
+
+v2.5 - Achievement Hall
+- Added a full achievement directory with 60 trackable achievements.
+- Added category, rarity, and earned-status filters.
+- Added live progress, trophy points, and member switching.
+- Expanded profile achievement tracking and linked profiles to the full directory.

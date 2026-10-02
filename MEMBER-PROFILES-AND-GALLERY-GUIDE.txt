@@ -1,0 +1,15 @@
+AETHERCRAFT v2.4 MEMBER PROFILE GUIDE
+
+This update adds a unified Minecraft-style member profile module, stable forum hover cards, profile analytics, reactions, badges, achievements, social links, and an eight-image build gallery.
+
+EDITING A PROFILE
+1. Log in and open Account.
+2. Add a public profile name, bio, location, favorite mode, and social links.
+3. Upload up to eight build screenshots.
+4. Add a title and description to each screenshot, then press Save profile.
+
+STATIC SITE NOTE
+The demo stores profiles and gallery images in localStorage. Each browser/device has separate data. A production community needs a backend/database and file storage.
+
+ACHIEVEMENTS
+Achievements are calculated from forum topics, replies, reactions, linked Minecraft profile, social links, gallery uploads, and join date.

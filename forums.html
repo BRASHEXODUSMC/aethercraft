@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Modern Minecraft server website template"
+    />
+    <title>Forums | AetherCraft</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div id="curtain" class="transition-curtain"></div>
+    <nav class="nav">
+      <div class="wrap nav-inner">
+        <a class="brand" href="index.html" data-transition
+          ><span class="brand-cube"></span
+          ><strong data-server-name>AetherCraft</strong></a
+        ><button id="mobileToggle" class="btn ghost mobile-toggle">Menu</button>
+        <div id="navLinks" class="links">
+          <a href="index.html" data-transition>Home</a
+          ><a href="forums.html" data-transition>Forums</a
+          ><a href="vote.html" data-transition>Vote</a
+          ><a href="players.html" data-transition>Players</a
+          ><a href="items.html" data-transition>Items</a
+          ><a href="staff.html" data-transition>Staff</a
+          ><a href="admin.html" data-transition>Admin</a><a href="build-academy.html" data-transition>Build Academy</a>
+        </div>
+        <div class="nav-actions" data-auth-actions></div>
+      </div>
+    </nav>
+    <main>
+      <section class="page-hero">
+        <div class="wrap">
+          <span class="kicker">COMMUNITY</span>
+          <h1 class="page-title">Server Forums</h1>
+          <p class="muted">
+            Create topics, add multiple tags, drag in screenshots, attach video
+            links, reply with emojis, and react to posts.
+          </p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap forum-layout">
+          <div>
+            <div class="toolbar forum-toolbar">
+              <input
+                id="forumSearch"
+                class="input"
+                placeholder="Search topics, categories, tags, or posts..."
+                style="flex: 1"
+              /><button id="newTopicBtn" class="btn primary">
+                Create topic
+              </button>
+            </div>
+            <div id="forumCategoryGrid" class="forum-category-grid" aria-label="Forum categories"></div>
+            <div class="forum-list-heading">
+              <div>
+                <span class="kicker">DISCUSSIONS</span>
+                <h2 id="forumListTitle">All forum topics</h2>
+              </div>
+              <button id="clearCategoryFilter" class="btn ghost hidden" type="button">Show all categories</button>
+            </div>
+            <div id="composerModal" class="forum-composer-modal hidden" role="dialog" aria-modal="true" aria-labelledby="composerTitle">
+              <section id="composer" class="card forum-composer-panel">
+                <div class="forum-composer-head">
+                  <div><span class="kicker">NEW DISCUSSION</span><h2 id="composerTitle">Create a topic</h2></div>
+                  <button id="closeComposer" class="modal-close" type="button" aria-label="Close topic composer">×</button>
+                </div>
+              <form id="newTopicForm">
+                <div class="field">
+                  <label for="topicCategory">Forum category</label>
+                  <select id="topicCategory" name="category" class="select" required>
+                    <option value="Community">💬 Community & Introductions</option>
+                    <option value="FAQ">❓ FAQ & Server Help</option>
+                    <option value="Building">🏗️ Building Techniques</option>
+                    <option value="Recipes">📖 Crafting & Recipes</option>
+                    <option value="Redstone">⚙️ Redstone Engineering</option>
+                    <option value="Survival">🗡️ Survival & Gameplay</option>
+                    <option value="Farms">🌾 Farms & Automation</option>
+                    <option value="Mods">🧩 Mods, Plugins & Datapacks</option>
+                    <option value="Showcase">🏆 Builds & Showcases</option>
+                    <option value="Marketplace">💎 Trading & Marketplace</option>
+                    <option value="Support">🛠️ Support & Bug Reports</option>
+                    <option value="Off Topic">🌙 Off Topic</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>Topic title</label
+                  ><input name="title" class="input" required maxlength="100" />
+                </div>
+                <div class="field">
+                  <label>Message</label
+                  ><textarea name="body" class="textarea" required></textarea>
+                </div>
+                <div class="field">
+                  <label>Tags</label>
+                  <div class="toolbar">
+                    <label class="tag"
+                      ><input
+                        type="checkbox"
+                        name="tags"
+                        value="Announcement"
+                      />
+                      Announcement</label
+                    ><label class="tag"
+                      ><input type="checkbox" name="tags" value="Survival" />
+                      Survival</label
+                    ><label class="tag"
+                      ><input type="checkbox" name="tags" value="Skyblock" />
+                      Skyblock</label
+                    ><label class="tag"
+                      ><input type="checkbox" name="tags" value="Support" />
+                      Support</label
+                    ><label class="tag"
+                      ><input type="checkbox" name="tags" value="Bug Report" />
+                      Bug Report</label
+                    ><label class="tag"
+                      ><input type="checkbox" name="tags" value="Showcase" />
+                      Showcase</label
+                    ><label class="tag"
+                      ><input type="checkbox" name="tags" value="Redstone" />
+                      Redstone</label
+                    ><label class="tag"
+                      ><input type="checkbox" name="tags" value="Off Topic" />
+                      Off Topic</label
+                    >
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Video link</label
+                  ><input
+                    name="video"
+                    class="input"
+                    type="url"
+                    placeholder="YouTube, Twitch, TikTok, or other link"
+                  />
+                </div>
+                <div id="dropzone" class="dropzone pro-dropzone" tabindex="0" role="button" aria-label="Upload forum images">
+                  <strong>Drop screenshots here</strong>
+                  <p class="muted">Drag images here or click to choose up to four files. Images are resized automatically.</p><div class="dropzone-meter"><span id="uploadCount">0 / 4 selected</span><span>PNG, JPG, WEBP</span></div>
+                  <input
+                    id="imageInput"
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    hidden
+                  />
+                </div>
+                <div id="previews" class="preview-grid"></div>
+                <button class="btn primary" type="submit">Publish topic</button>
+              </form>
+              </section>
+            </div>
+            <div id="topicList" class="topic-list"></div>
+          </div>
+          <aside>
+            <div class="card forum-guide-card">
+              <h3>Minecraft forum guide</h3>
+              <p class="muted">Choose a category to keep discussions organized and help other players find useful information.</p>
+              <div class="forum-guide-links">
+                <button type="button" data-category-shortcut="FAQ">❓ Server FAQ</button>
+                <button type="button" data-category-shortcut="Building">🏗️ Building help</button>
+                <button type="button" data-category-shortcut="Recipes">📖 Recipe guides</button>
+                <button type="button" data-category-shortcut="Redstone">⚙️ Redstone help</button>
+                <button type="button" data-category-shortcut="Support">🛠️ Get support</button>
+              </div>
+            </div>
+            <div class="card" style="margin-top: 14px">
+              <h3>Online members</h3>
+              <p class="muted">
+                SteveBuilder · PixelFox · SkyMiner · 21 guests
+              </p>
+            </div>
+          </aside>
+        </div>
+      </section>
+      <div id="topicModal" class="modal hidden">
+        <div class="modal-panel">
+          <button id="closeTopic" class="btn ghost" style="float: right">
+            Close
+          </button>
+          <div id="topicModalBody"></div>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="wrap footer-grid">
+        <div>
+          <div class="brand">
+            <span class="brand-cube"></span
+            ><strong data-server-name>AetherCraft</strong>
+          </div>
+          <p>Reusable community website template for Minecraft servers.</p>
+        </div>
+        <div>
+          <strong>Explore</strong>
+          <p>
+            <a href="forums.html" data-transition>Forums</a><a href="achievements.html" data-transition>Achievements</a><br /><a
+              href="vote.html"
+              data-transition
+              >Vote</a
+            ><br /><a href="items.html" data-transition>Item guide</a>
+          </p>
+        </div>
+        <div>
+          <strong>Server</strong>
+          <p>
+            <span data-server-ip>play.example.net</span><br /><a
+              data-discord
+              href="#"
+              >Discord</a
+            ><br /><a data-store href="#">Store</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+    <div id="toast" class="toast"></div>
+    <script src="js/common.js"></script>
+    <script src="js/forums.js"></script>
+  </body>
+</html>

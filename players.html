@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Modern Minecraft server website template"
+    />
+    <title>Player Lookup | AetherCraft</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div id="curtain" class="transition-curtain"></div>
+    <nav class="nav">
+      <div class="wrap nav-inner">
+        <a class="brand" href="index.html" data-transition
+          ><span class="brand-cube"></span
+          ><strong data-server-name>AetherCraft</strong></a
+        ><button id="mobileToggle" class="btn ghost mobile-toggle">Menu</button>
+        <div id="navLinks" class="links">
+          <a href="index.html" data-transition>Home</a
+          ><a href="forums.html" data-transition>Forums</a
+          ><a href="vote.html" data-transition>Vote</a
+          ><a href="players.html" data-transition>Players</a
+          ><a href="items.html" data-transition>Items</a
+          ><a href="staff.html" data-transition>Staff</a
+          ><a href="admin.html" data-transition>Admin</a><a href="build-academy.html" data-transition>Build Academy</a>
+        </div>
+        <div class="nav-actions" data-auth-actions></div>
+      </div>
+    </nav>
+    <main>
+      <section class="page-hero">
+        <div class="wrap">
+          <span class="kicker">PLAYER TOOLS</span>
+          <h1 class="page-title">UUID & Skin Locator</h1>
+          <p class="muted">
+            Look up a Java player, copy their UUID, preview their skin, and
+            download it.
+          </p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap">
+          <form id="playerLookup" class="card">
+            <div class="form-row">
+              <div class="field">
+                <label>Minecraft Java username</label
+                ><input
+                  id="playerName"
+                  class="input"
+                  placeholder="Example: Notch"
+                  required
+                />
+              </div>
+              <div class="field" style="align-content: end">
+                <button class="btn primary">Find player</button>
+              </div>
+            </div>
+          </form>
+          <div id="playerResult" style="margin-top: 18px"></div>
+          <div class="notice" style="margin-top: 18px">
+            This player search now uses a free browser-friendly profile API and MC Heads, so it works directly through VS Code Live Server without PHP. The included PHP proxy remains as an optional fallback.
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="wrap footer-grid">
+        <div>
+          <div class="brand">
+            <span class="brand-cube"></span
+            ><strong data-server-name>AetherCraft</strong>
+          </div>
+          <p>Reusable community website template for Minecraft servers.</p>
+        </div>
+        <div>
+          <strong>Explore</strong>
+          <p>
+            <a href="forums.html" data-transition>Forums</a><a href="achievements.html" data-transition>Achievements</a><br /><a
+              href="vote.html"
+              data-transition
+              >Vote</a
+            ><br /><a href="items.html" data-transition>Item guide</a>
+          </p>
+        </div>
+        <div>
+          <strong>Server</strong>
+          <p>
+            <span data-server-ip>play.example.net</span><br /><a
+              data-discord
+              href="#"
+              >Discord</a
+            ><br /><a data-store href="#">Store</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+    <div id="toast" class="toast"></div>
+    <script src="js/common.js"></script>
+    <script src="js/players.js"></script>
+  </body>
+</html>
