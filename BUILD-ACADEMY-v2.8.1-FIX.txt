@@ -1,0 +1,10 @@
+AetherCraft Build Academy v2.8.1 Fix
+
+Fixed:
+- Build catalog startup ReferenceError caused by calling an optional undefined renderAuthActions symbol.
+- Initialization now waits for DOM readiness and isolates optional component failures.
+- Existing 60 built-in tutorials preserved.
+- Added 60+ additional custom searchable build concepts across houses, castles, villages, cultural builds, infrastructure, survival bases, redstone, farms, landscaping, vehicles, sci-fi, multiplayer and decoration.
+- Search remains fully local and GitHub Pages compatible.
+
+No API is required for the built-in catalog.
