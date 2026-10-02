@@ -1,0 +1,8 @@
+AetherCraft v2.8.2
+
+- Moved Java/Bedrock AetherCraft JSON Blueprint Converter to blueprint-converter.html.
+- Build Academy is now tutorial-focused.
+- Expanded built-in tutorial catalog with additional castles, homes, interiors, infrastructure, survival, fantasy, Nether, redstone and community builds.
+- Replaced generic material labels with named Minecraft block palettes such as Spruce Planks, Stripped Spruce Logs, Oak/Dark Oak/Cherry/Mangrove variants, Stone Bricks, Cobblestone, Deepslate Tiles, Blackstone and more.
+- Material quantities scale per tutorial dimensions and complexity and are intended as the required planning list for the generated structural tutorial. Decorative substitutions may change totals.
+- Existing Resource Pack Lab remains a separate page.
