@@ -1,0 +1,24 @@
+AETHERCRAFT v2.9.3 — SKIN RENDER STUDIO
+
+Open: skin-render-studio.html
+
+Features
+- Browser-local Minecraft skin upload (64x64; legacy 64x32 accepted)
+- Classic/Steve and Slim/Alex arm geometry
+- Pose presets: Hero, Relaxed, Wave, Point, Victory, Stride, Sneak, Jump, Dab, Think, Salute, Sit
+- Fine X/Y/Z rotation sliders for head, body, both arms and both legs
+- Orbit/pan/zoom camera and camera presets
+- Light-room key/fill/rim rig with intensity/color/exposure controls
+- Cinematic, Daylight, Neon, Warm and Moon lighting presets
+- Real-time soft shadow maps and ACES tone mapping
+- Reflective/matte/grass/stone/no-floor modes
+- Dark, light, sunset, Nether, End and transparent backgrounds
+- Voxel companions: wolf, cat, pig, cow, sheep, chicken, fox, bee
+- PNG export presets through 4K
+- WebGPU capability reporting; WebGL 2 high-performance rendering for broad static-host compatibility
+
+IMPORTANT ABOUT RTX
+This page does not claim NVIDIA RTX hardware ray tracing. In a static browser site, GPU acceleration, PBR materials, tone mapping, shadow maps and reflective material response are used. A true path-traced RTX renderer would require a substantially different rendering pipeline and hardware/browser support.
+
+GITHUB PAGES
+The studio is a static HTML/CSS/JS page and is compatible with GitHub Pages. It loads Three.js ES modules from jsDelivr over HTTPS. Skin files stay local in the browser and are not uploaded by AetherCraft.
