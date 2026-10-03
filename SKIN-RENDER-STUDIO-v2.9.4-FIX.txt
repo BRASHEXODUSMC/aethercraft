@@ -1,0 +1,10 @@
+AetherCraft v2.9.4 Skin Render Studio Fix
+- Correct Minecraft 64x64 atlas UV mapping for head/body/arms/legs.
+- Uploaded PNG is copied into an internal canvas and applied immediately to the model.
+- Visible face preview confirms the skin was decoded.
+- Auto model detection now distinguishes Classic/Steve vs Slim/Alex using transparent arm atlas pixels.
+- Outer/second skin layer now renders and can be toggled.
+- Limb rotations now use shoulder/hip/head pivots for much more natural posing.
+- Expanded pose library: Hero, Idle, Wave, Point, Victory, Walking, Running, Sneak, Jump, Dab, Think, Salute, Sit, Crossed Arms, Power, Look Back, Fighting, Bow Ready, Celebration, Builder.
+- Manual X/Y/Z joint sliders remain available after selecting any preset.
+- GitHub Pages compatible; no backend required for local skin uploads.
