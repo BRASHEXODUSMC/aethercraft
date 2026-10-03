@@ -1,0 +1,16 @@
+AetherCraft v2.9.5 Skin Render Studio rebuild
+
+Fixes:
+- Added import map so OrbitControls can resolve Three.js correctly on GitHub Pages.
+- Removed duplicate loadSkin() function that was overriding the improved loader.
+- Added generated textured Steve-style base skin so a model appears before upload.
+- Added 64x64/legacy 64x32 PNG validation and one unified upload pipeline.
+- Drag/drop works on both the Skin card and the main render viewport.
+- Auto Classic/Steve vs Slim/Alex detection is restored.
+- Outer skin layer is retained.
+- Startup watchdog displays a diagnostic instead of an unexplained blank viewport.
+- Expanded pose library with Sword Ready, Mining, Flying, Selfie, Cheer, Relaxed Sit, Crouch Attack, Presentation.
+- Existing studio lighting, shadows, floor, backgrounds, animals, manual joint controls and PNG export preserved.
+
+GitHub Pages note:
+The 3D engine is loaded from jsDelivr at runtime. The included import map fixes module resolution for Three.js + OrbitControls. A network/content blocker that blocks jsDelivr will trigger the viewport diagnostic.
