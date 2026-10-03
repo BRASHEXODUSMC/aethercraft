@@ -1,4 +1,9 @@
 let allItems=[];
+const ITEM_ASSET_BASE='https://mc-api.bisai.dev/v1/assets/items/';
+function itemImageUrl(id){return ITEM_ASSET_BASE+encodeURIComponent(id)+'/texture.png'}
+function visualFallback(icon='▧'){return `<span class="item-icon">${icon}</span>`}
+function itemVisual(i,large=false){const fb=escapeHtml(i.icon||'▧');return `<div class="${large?'item-modal-visual':'item-visual'}"><img src="${itemImageUrl(i.id)}" alt="${escapeHtml(i.name)} Minecraft icon" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="item-icon" style="display:none">${fb}</span></div>`}
+
 let filteredItems=[];
 let currentPage=1;
 const pageSize=48;
@@ -30,7 +35,7 @@ function renderItems(){
   const start=(currentPage-1)*pageSize;
   const page=filteredItems.slice(start,start+pageSize);
   $id('itemCount').textContent=`${filteredItems.length.toLocaleString()} results · ${allItems.length.toLocaleString()} catalog entries`;
-  $id('itemGrid').innerHTML=page.length?page.map(i=>`<article class="card item-card" tabindex="0" role="button" onclick="openItem('${i.id}')" onkeydown="if(event.key==='Enter')openItem('${i.id}')"><span class="item-icon">${i.icon||'▧'}</span><span class="tag green">${escapeHtml(i.category||i.type)}</span><h3>${escapeHtml(i.name)}</h3><code class="item-id">minecraft:${escapeHtml(i.id)}</code><p>${escapeHtml(i.description)}</p></article>`).join(''):'<div class="notice">No matching blocks or items were found.</div>';
+  $id('itemGrid').innerHTML=page.length?page.map(i=>`<article class="card item-card" tabindex="0" role="button" onclick="openItem('${i.id}')" onkeydown="if(event.key==='Enter')openItem('${i.id}')">${itemVisual(i)}<span class="tag green">${escapeHtml(i.category||i.type)}</span><h3>${escapeHtml(i.name)}</h3><code class="item-id">minecraft:${escapeHtml(i.id)}</code><p>${escapeHtml(i.description)}</p></article>`).join(''):'<div class="notice">No matching blocks or items were found.</div>';
   $id('pagination').innerHTML=`<button class="btn ghost" ${currentPage===1?'disabled':''} onclick="changePage(-1)">Previous</button><span>Page ${currentPage} of ${totalPages}</span><button class="btn ghost" ${currentPage===totalPages?'disabled':''} onclick="changePage(1)">Next</button>`;
 }
 function changePage(dir){currentPage+=dir;renderItems();window.scrollTo({top:$id('itemTools').offsetTop-90,behavior:'smooth'});}
@@ -102,7 +107,7 @@ function openItem(id){
   const i=allItems.find(x=>x.id===id);if(!i)return;
   lastItemTrigger=document.activeElement;
   const uses=(i.uses||[]).map(x=>`<li>${escapeHtml(x)}</li>`).join('')||'<li>Use this entry according to its normal Minecraft gameplay behavior.</li>';
-  $id('itemModalBody').innerHTML=`<div class="item-modal-heading"><span class="item-icon">${i.icon||'▧'}</span><div><span class="tag">${escapeHtml(i.rarity||'Common')}</span><h2 id="itemModalTitle">${escapeHtml(i.name)}</h2><code>minecraft:${escapeHtml(i.id)}</code></div></div><p class="muted">${escapeHtml(i.description)}</p><p><strong>Category:</strong> ${escapeHtml(i.category||i.type)} · <strong>Type:</strong> ${escapeHtml(i.type)}</p><h3>Common uses</h3><ul>${uses}</ul><h3>Recipe / obtaining method</h3>${renderRecipeInfo(i)}`;
+  $id('itemModalBody').innerHTML=`<div class="item-modal-heading">${itemVisual(i,true)}<div><span class="tag">${escapeHtml(i.rarity||'Common')}</span><h2 id="itemModalTitle">${escapeHtml(i.name)}</h2><code>minecraft:${escapeHtml(i.id)}</code></div></div><p class="muted">${escapeHtml(i.description)}</p><p><strong>Category:</strong> ${escapeHtml(i.category||i.type)} · <strong>Type:</strong> ${escapeHtml(i.type)}</p><h3>Common uses</h3><ul>${uses}</ul><h3>Recipe / obtaining method</h3>${renderRecipeInfo(i)}`;
   const modal=$id('itemModal');
   modal.classList.remove('is-closing');
   modal.setAttribute('aria-hidden','false');
@@ -123,3 +128,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   $id('itemModal').addEventListener('click',e=>{if(e.target===$id('itemModal'))closeItemModal()});
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeItemModal()});
 });
+const VISUAL_MOBS=[
+ ['creeper','Creeper','Hostile','Explodes when close to players.'],['zombie','Zombie','Hostile','Common undead hostile mob.'],['skeleton','Skeleton','Hostile','Ranged undead mob using a bow.'],['spider','Spider','Neutral / Hostile','Climbs walls and becomes hostile in low light.'],['enderman','Enderman','Neutral','Tall teleporting mob that reacts to eye contact.'],['slime','Slime','Hostile','Bouncy mob that splits into smaller slimes.'],['pig','Pig','Passive','Farm animal that can be bred and ridden with the right equipment.'],['cow','Cow','Passive','Farm animal providing beef, leather and milk.'],['sheep','Sheep','Passive','Provides wool and can be dyed many colors.'],['chicken','Chicken','Passive','Provides eggs, feathers and food.'],['wolf','Wolf','Neutral / Tameable','Can be tamed and accompanies players.'],['villager','Villager','Passive','Trading NPC with professions and village jobs.']
+];
+function renderMobs(){const el=$id('mobGrid');if(!el)return;el.innerHTML=VISUAL_MOBS.map(([id,name,type,desc])=>`<article class="card mob-card"><img src="https://skinrender.dev/render/mob/${id}/body?size=256" alt="${name} Minecraft mob render" loading="lazy" decoding="async"><span class="tag green">${type}</span><h3>${name}</h3><code>minecraft:${id}</code><p>${desc}</p></article>`).join('')}
+document.addEventListener('DOMContentLoaded',renderMobs);

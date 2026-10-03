@@ -34,17 +34,15 @@
       <section class="page-hero">
         <div class="wrap">
           <span class="kicker">MINECRAFT GUIDE</span>
-          <h1 class="page-title">Blocks & Items</h1>
+          <h1 class="page-title">Minecraft Encyclopedia</h1>
           <p class="muted">
-            Browse a large Java Edition-style catalog of blocks, items, tools,
-            armor, food, redstone, spawn eggs, templates, collectibles, IDs, and
-            selected recipes.
+            Browse blocks, items, tools, armor, food, redstone, collectibles and mobs with visual Minecraft renders, IDs, recipes and gameplay information.
           </p>
         </div>
       </section>
       <section class="section">
         <div class="wrap">
-          <div id="itemTools" class="item-tools">
+          <div class="encyclopedia-tabs"><a class="btn" href="#itemTools">Blocks & Items</a><a class="btn ghost" href="#mobSection">Mobs</a><a class="btn ghost" href="news.html" data-transition>Official News</a></div><div id="itemTools" class="item-tools">
             <input
               id="itemSearch"
               class="input"
@@ -63,7 +61,7 @@
           </div>
           <div id="itemGrid" class="item-grid"></div>
           <div id="pagination" class="pagination"></div>
-          <div class="notice catalog-note">
+          <section id="mobSection" class="academy-panel" style="margin-top:28px"><span class="kicker">MOB ENCYCLOPEDIA</span><h2>Minecraft Mobs</h2><p class="muted">Visual mob reference cards for common passive, neutral and hostile mobs. Renders load over HTTPS and gracefully fall back if the external renderer is unavailable.</p><div id="mobGrid" class="mob-grid"></div></section><div class="notice catalog-note">
             <strong>Catalog note:</strong> Minecraft changes over time. This
             template includes a broad 1.21.x-oriented catalog generated from the
             major block and item families. Server owners can edit

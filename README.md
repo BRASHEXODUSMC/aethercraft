@@ -55,3 +55,7 @@ V1.4 UPDATE
 - Added a full paginated forum emoji browser for replies.
 - Emoji browser includes category tabs, search, Previous/Next page controls, and hundreds of emojis.
 - Clicking an emoji inserts it at the current caret position without closing the picker, allowing multiple emoji selections.
+
+
+## v2.9 GitHub Pages update
+Build Academy startup fixed, Blueprint Lab hardened, visual encyclopedia added, and official Minecraft News page added.

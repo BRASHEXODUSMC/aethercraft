@@ -1,0 +1,22 @@
+AetherCraft v2.9 - GitHub Pages Fix + Visual Encyclopedia + Official News
+
+FIXED
+- Build Academy GitHub Pages regression: build-academy.js called startBuildAcademy() even though that function did not exist.
+- Added a real startBuildAcademy wrapper and visible fallback error state.
+- Hardened Blueprint Lab startup so it runs without PHP/server dependencies.
+- Added .nojekyll for GitHub Pages.
+
+VISUAL ENCYCLOPEDIA
+- Existing 1,243 block/item entries remain searchable.
+- Cards now attempt to display rendered Minecraft inventory icons over HTTPS, with the old icon as a fallback.
+- Added a visual Mob Encyclopedia section for common mobs.
+
+OFFICIAL NEWS
+- Added news.html with curated links to official Minecraft/Mojang announcements.
+- Uses bundled fallback cards because GitHub Pages cannot run a server-side feed proxy and third-party CORS behavior can change.
+- Includes a direct link to the always-current official Minecraft News page.
+
+DEPLOYMENT
+Upload the CONTENTS of this folder to the repository root. index.html must be at the repository root.
+GitHub > Settings > Pages > Deploy from branch > main > /(root).
+After updating, hard refresh with Ctrl+F5.
