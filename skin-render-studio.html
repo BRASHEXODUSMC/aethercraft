@@ -13,6 +13,36 @@
 <div class="render-stage-column"><div class="render-statusbar"><span id="gpuStatus">Detecting GPU…</span><span id="sceneStatus">No skin uploaded • demo model active</span></div><div id="renderViewport" class="render-viewport"><canvas id="renderCanvas"></canvas><div class="viewport-help">Drag to orbit • wheel to zoom • right-drag to pan</div></div><div class="studio-bottom-bar"><button id="cameraFront" class="btn ghost">Front</button><button id="cameraPortrait" class="btn ghost">Portrait</button><button id="cameraHero" class="btn ghost">Hero</button><button id="cameraFull" class="btn ghost">Full Body</button><button id="resetStudio" class="btn ghost">Reset Studio</button></div><div class="notice"><strong>GPU rendering:</strong> the studio requests a high-performance GPU context. WebGPU capability is reported when available; the production renderer uses WebGL 2 for broad GitHub Pages compatibility with physically based materials, ACES tone mapping, antialiasing and real-time shadow maps. “RTX Enhanced” means richer PBR-style lighting/reflections on capable hardware—not hardware ray tracing/path tracing.</div></div>
 </div></div></section></main>
 <footer class="footer"><div class="wrap footer-grid"><div><div class="brand"><span class="brand-cube"></span><strong data-server-name>AetherCraft</strong></div><p>Reusable community website template for Minecraft servers.</p></div><div><strong>Create</strong><p><a href="skin-render-studio.html">Skin Render Studio</a><br><a href="build-academy.html">Build Academy</a><br><a href="resource-pack-converter.html">Pack Lab</a></p></div></div></footer><div id="toast" class="toast"></div><script src="js/common.js"></script>
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script>
-<script type="module" src="js/skin-render-studio.js"></script>
-<script>setTimeout(function(){if(!document.documentElement.dataset.skinRendererReady){var v=document.getElementById('renderViewport');if(v){var d=document.createElement('div');d.className='renderer-fallback';d.innerHTML='<strong>3D renderer did not start.</strong><span>Check your internet connection or browser WebGL support, then reload. The studio requires Three.js to load before rendering.</span>';v.appendChild(d)}var s=document.getElementById('sceneStatus');if(s)s.textContent='Renderer startup failed • diagnostic shown in viewport';}},3500);</script></body></html>
+<script>
+(function(){
+  const status=document.getElementById('sceneStatus');
+  const viewport=document.getElementById('renderViewport');
+  const sources=[
+    'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js',
+    'https://unpkg.com/three@0.180.0/build/three.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/three.js/0.180.0/three.min.js'
+  ];
+  let i=0;
+  function note(msg){ if(status) status.textContent=msg; }
+  function fail(){
+    note('Renderer library could not load');
+    if(viewport&&!viewport.querySelector('.renderer-fallback')){
+      const d=document.createElement('div');d.className='renderer-fallback';
+      d.innerHTML='<strong>Render Studio could not start.</strong><span>Three.js was blocked by the browser/network. Try disabling strict tracking protection for this page or reload. The site will automatically try three separate library sources.</span>';viewport.appendChild(d);
+    }
+  }
+  function loadApp(){
+    note('Three.js loaded • starting AetherCraft renderer…');
+    const s=document.createElement('script');s.src='js/skin-render-studio.js?v=2.9.6';s.defer=true;s.onerror=fail;document.body.appendChild(s);
+  }
+  function next(){
+    if(window.THREE){loadApp();return;}
+    if(i>=sources.length){fail();return;}
+    note('Loading 3D engine • source '+(i+1)+' of '+sources.length+'…');
+    const s=document.createElement('script');s.src=sources[i++];s.crossOrigin='anonymous';s.onload=()=>window.THREE?loadApp():next();s.onerror=next;document.head.appendChild(s);
+  }
+  next();
+  setTimeout(()=>{if(!document.documentElement.dataset.skinRendererReady&&!window.THREE) fail();},10000);
+})();
+</script>
+</body></html>
