@@ -1,0 +1,6 @@
+AetherCraft v2.9.2
+- Expanded mob encyclopedia with health/hearts and taming/breeding interaction data. Mobs do not have player hunger bars.
+- Added Add-on Lab for common item definition migration to starter ItemsAdder/Nexo YAML. Complex mechanics require manual review.
+- Target baseline: Minecraft Java 26.3 stable; 26.4 was snapshot development at build time.
+- Build Academy materials now show synced Minecraft inventory texture references when available, plus color fallback.
+- Added BRASHEXODUS featured build videos and full playlist links. Exact historical upload/version metadata is not guessed when it cannot be verified.
