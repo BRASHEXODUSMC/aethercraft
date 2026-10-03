@@ -1,0 +1,8 @@
+AetherCraft v2.9.1 - Block-Aware Build Viewer
+
+- Layer cells now use colors derived from the tutorial's named Minecraft material palette.
+- Each layer lists the exact represented block names and counts with a matching color swatch.
+- The 3D preview uses the same block colors as the layer view.
+- Wood, stone, leaves/moss, glass/ice, water, Nether/deepslate, quartz, metals and other families have distinct visual colors.
+- Pixel Art Logo Board now uses an actual multicolor pixel pattern and row-by-row construction steps instead of a generic box.
+- Existing site layout and other pages are unchanged.
