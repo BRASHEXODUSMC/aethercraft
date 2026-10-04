@@ -1,0 +1,11 @@
+AetherCraft v2.9.7 Render Studio Rebuild
+
+- Removed Three.js and all external renderer-library requirements from Render Studio.
+- A default Minecraft-style Steve model is constructed immediately with CSS 3D cuboids.
+- 64x64 PNG skins can be clicked or drag/dropped onto the upload area or viewport.
+- Skin atlas faces are mapped to head, torso, arms and legs.
+- Auto-detects classic/slim arm model with manual override.
+- Drag viewport to orbit; mouse wheel zooms.
+- Built-in pose library is generated locally.
+- Build Academy material cards now prioritize actual Minecraft block texture images and include a visual fallback.
+- GitHub Pages safe: the character renderer itself requires no CDN or server backend.
